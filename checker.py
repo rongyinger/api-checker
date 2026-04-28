@@ -115,7 +115,7 @@ def _do_request(model: str) -> requests.Response:
             headers={
                 "Authorization": f"Bearer {API_KEY}",
                 "Content-Type": "application/json",
-                "sec-ch-ua-platform": '"Windows"',
+                "sec-ch-ua-platform": '"macOS"',
                 "accept": "text/event-stream",
             },
             json={"model": model, "input": "Reply with OK only.", "stream": True},
@@ -128,9 +128,11 @@ def _do_request(model: str) -> requests.Response:
             json={
                 "contents": [{"role": "user", "parts": [{"text": "Reply with OK only."}]}],
                 "generationConfig": {
-                    "temperature": 0,
-                    "topP": 1,
-                    "maxOutputTokens": 10,
+                    "candidateCount": 1,
+                    "temperature": 0.7,
+                    "topP": 0.95,
+                    "topK": 40,
+                    "maxOutputTokens": 2048,
                 },
             },
             timeout=60,
@@ -157,7 +159,10 @@ def check_model(model: str) -> tuple[bool, float, str]:
             if body_preview:
                 print(f"[DEBUG] {model} retry response body: {body_preview}")
             hint = ERROR_HINTS.get(resp.status_code, "Unknown error")
-            return False, elapsed, f"HTTP {resp.status_code} - {hint} (retried)"
+            req_id = resp.headers.get("x-request-id", "")
+            ctype = resp.headers.get("content-type", "")
+            detail = f"; body={body_preview}" if body_preview else f"; body=<empty>; content-type={ctype}; request-id={req_id}"
+            return False, elapsed, f"HTTP {resp.status_code} - {hint} (retried){detail}"
         elapsed = time.time() - start
         if resp.status_code == 200:
             return True, elapsed, ""
@@ -165,7 +170,10 @@ def check_model(model: str) -> tuple[bool, float, str]:
         if body_preview:
             print(f"[DEBUG] {model} response body: {body_preview}")
         hint = ERROR_HINTS.get(resp.status_code, "Unknown error")
-        return False, elapsed, f"HTTP {resp.status_code} - {hint}"
+        req_id = resp.headers.get("x-request-id", "")
+        ctype = resp.headers.get("content-type", "")
+        detail = f"; body={body_preview}" if body_preview else f"; body=<empty>; content-type={ctype}; request-id={req_id}"
+        return False, elapsed, f"HTTP {resp.status_code} - {hint}{detail}"
     except requests.exceptions.Timeout:
         return False, time.time() - start, "Request timeout (>60s) - model too slow or service unavailable"
     except Exception as e:
@@ -200,6 +208,7 @@ def main():
         ok, elapsed, err = check_model(model)
         status = "✅" if ok else "❌"
         note = f"{elapsed:.1f}s" if ok else f"{elapsed:.1f}s ({err})"
+        note = note.replace("|", "\\|").replace("\n", " ")
         rows.append((status, model, note))
         if not ok:
             any_fail = True
