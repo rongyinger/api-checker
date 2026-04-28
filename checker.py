@@ -40,7 +40,7 @@ def check_model(model: str) -> tuple[bool, float, str]:
     start = time.time()
     try:
         resp = requests.post(
-            f"{API_BASE_URL.rstrip('/')}/v1/chat/completions",
+            f"{API_BASE_URL.rstrip('/')}/chat/completions",
             headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
             json={"model": model, "messages": [{"role": "user", "content": "Reply with OK only."}], "max_tokens": 16},
             timeout=30,
