@@ -118,7 +118,7 @@ def _do_request(model: str) -> requests.Response:
                 "sec-ch-ua-platform": '"Windows"',
                 "accept": "text/event-stream",
             },
-            json={"model": model, "input": "Reply with OK only.", "stream": False},
+            json={"model": model, "input": "Reply with OK only.", "stream": True},
             timeout=60,
         )
     if "gemini" in model:
@@ -153,15 +153,21 @@ def check_model(model: str) -> tuple[bool, float, str]:
             elapsed = time.time() - start
             if resp.status_code == 200:
                 return True, elapsed, ""
-            hint = ERROR_HINTS.get(resp.status_code, "未知错误")
-            return False, elapsed, f"HTTP {resp.status_code} — {hint}（已重试）"
+            body_preview = (resp.text or "").replace("\n", " ")[:300]
+            if body_preview:
+                print(f"[DEBUG] {model} retry response body: {body_preview}")
+            hint = ERROR_HINTS.get(resp.status_code, "Unknown error")
+            return False, elapsed, f"HTTP {resp.status_code} - {hint} (retried)"
         elapsed = time.time() - start
         if resp.status_code == 200:
             return True, elapsed, ""
-        hint = ERROR_HINTS.get(resp.status_code, "未知错误")
-        return False, elapsed, f"HTTP {resp.status_code} — {hint}"
+        body_preview = (resp.text or "").replace("\n", " ")[:300]
+        if body_preview:
+            print(f"[DEBUG] {model} response body: {body_preview}")
+        hint = ERROR_HINTS.get(resp.status_code, "Unknown error")
+        return False, elapsed, f"HTTP {resp.status_code} - {hint}"
     except requests.exceptions.Timeout:
-        return False, time.time() - start, "请求超时（超过60秒）— 模型响应过慢或服务不可用"
+        return False, time.time() - start, "Request timeout (>60s) - model too slow or service unavailable"
     except Exception as e:
         return False, time.time() - start, str(e)
 
