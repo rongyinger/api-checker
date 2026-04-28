@@ -108,22 +108,34 @@ ERROR_HINTS = {
 }
 
 
+def _do_request(model: str) -> requests.Response:
+    return requests.post(
+        f"{API_BASE_URL.rstrip('/')}/chat/completions",
+        headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
+        json={"model": model, "messages": [{"role": "user", "content": "Reply with OK only."}], "max_tokens": 16},
+        timeout=60,
+    )
+
+
 def check_model(model: str) -> tuple[bool, float, str]:
     start = time.time()
     try:
-        resp = requests.post(
-            f"{API_BASE_URL.rstrip('/')}/chat/completions",
-            headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
-            json={"model": model, "messages": [{"role": "user", "content": "Reply with OK only."}], "max_tokens": 16},
-            timeout=30,
-        )
+        resp = _do_request(model)
+        if resp.status_code == 429:
+            time.sleep(5)
+            resp = _do_request(model)
+            elapsed = time.time() - start
+            if resp.status_code == 200:
+                return True, elapsed, ""
+            hint = ERROR_HINTS.get(resp.status_code, "未知错误")
+            return False, elapsed, f"HTTP {resp.status_code} — {hint}（已重试）"
         elapsed = time.time() - start
         if resp.status_code == 200:
             return True, elapsed, ""
         hint = ERROR_HINTS.get(resp.status_code, "未知错误")
         return False, elapsed, f"HTTP {resp.status_code} — {hint}"
     except requests.exceptions.Timeout:
-        return False, time.time() - start, "请求超时（超过30秒）— 模型响应过慢或服务不可用"
+        return False, time.time() - start, "请求超时（超过60秒）— 模型响应过慢或服务不可用"
     except Exception as e:
         return False, time.time() - start, str(e)
 
