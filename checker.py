@@ -13,27 +13,100 @@ DINGTALK_SECRET = os.environ["DINGTALK_SECRET"]
 
 MODELS = [
     # OpenAI
-    "GPT-4.1", "GPT-4o", "gpt-4o-mini-2024-07-18", "gpt-5",
+    "GPT-4.1",
+    "GPT-4o",
+    "gpt-4o-2024-11-20",
+    "gpt-4o-2024-08-06",
+    "gpt-4o-mini-2024-07-18",
+    "gpt-5",
+    "gpt-5-codex",
+    "gpt-5.1",
+    "gpt-5.1-codex",
+    "gpt-5.2",
+    "gpt-5.2-codex",
+    "gpt-5.3-codex",
+    "gpt-5.4",
+    "gpt-oss-120b",
+    "mog-5",
     # Claude
-    "claude-3.7-sonnet-20250219", "claude-sonnet-4-20250514",
-    "claude-haiku-4-5-20251001", "claude-opus-4-20250514",
+    "claude-3.7-sonnet-20250219",
+    "claude-sonnet-4-20250514",
+    "claude-sonnet-4-5-20250929",
+    "claude-sonnet-4-6",
+    "claude-haiku-4-5-20251001",
+    "claude-opus-4-20250514",
+    "claude-opus-4-1-20250805",
+    "claude-opus-4-5-20251101",
+    "claude-opus-4-6",
+    "claude-opus-4-7-stable",
     # Gemini
-    "gemini-2.0-flash", "gemini-2.5-flash", "gemini-2.5-pro",
+    "gemini-2.0-flash",
+    "gemini-2.5-flash-lite",
+    "gemini-2.5-flash",
+    "gemini-2.5-pro",
+    "gemini-3-flash-preview",
+    "gemini-3.1-flash-lite-preview",
+    "gemini-3.1-pro-preview",
     # Kimi
-    "kimi-k2", "kimi-k2-thinking",
+    "kimi-k2",
+    "kimi-k2-5-260127",
+    "kimi-k2-thinking",
     # MiMo
-    "mimo-v2-flash", "mimo-v2-pro",
+    "mimo-v2-flash",
+    "mimo-v2-pro",
     # DeepSeek
-    "deepseek-v3", "deepseek-reasoner", "deepseek-v3.1",
+    "deepseek-v3",
+    "deepseek-v3-2-251201",
+    "deepseek-reasoner",
+    "deepseek-v3.1",
+    "deepseek-v3.2-speciale",
+    "deepseek-v4-flash",
+    "deepseek-v4-pro",
     # Qwen
-    "qwen-turbo", "qwen-plus", "qwen3-32b", "qwen3-max", "qwq-32b",
+    "qwen-flash",
+    "qwen-turbo",
+    "qwen-long",
+    "qwen-plus",
+    "qwen3.5-flash",
+    "qwen3.5-plus",
+    "qwen3.5-35b-a3b",
+    "qwen3.5-397b-a17b",
+    "qwen3-next",
+    "qwen3-32b",
+    "qwen3-max",
+    "qwen3-235b",
+    "qwen3-coder",
+    "qwen3-30b-a3b-instruct-2507",
+    "qwq-32b",
+    "qwq-plus",
     # 智谱
-    "glm-4.6", "glm-5",
+    "glm-4.6",
+    "glm-4.7",
+    "glm-5",
+    "glm-5.1",
     # MiniMax
     "minimax-m2.5",
+    "minimax-m2.5-highspeed",
+    "minimax-m2.7",
+    # 腾讯混元
+    "hunyuan-vision-1.5-instruct",
+    "hunyuan-t1-vision-20250916",
     # 豆包
     "doubao-seed-2-0-lite",
 ]
+
+
+ERROR_HINTS = {
+    400: "请求格式错误，模型可能不支持该参数",
+    401: "API Key 无效或已过期",
+    403: "无权限访问该模型，可能未购买或已禁用",
+    404: "模型名称不存在，请确认模型ID是否正确",
+    429: "请求过于频繁，触发限流",
+    500: "平台服务器内部错误，上游服务异常",
+    502: "网关错误，上游服务无响应",
+    503: "服务暂时不可用，上游服务过载或维护中",
+    504: "网关超时，上游响应太慢",
+}
 
 
 def check_model(model: str) -> tuple[bool, float, str]:
@@ -48,9 +121,10 @@ def check_model(model: str) -> tuple[bool, float, str]:
         elapsed = time.time() - start
         if resp.status_code == 200:
             return True, elapsed, ""
-        return False, elapsed, f"HTTP {resp.status_code}"
+        hint = ERROR_HINTS.get(resp.status_code, "未知错误")
+        return False, elapsed, f"HTTP {resp.status_code} — {hint}"
     except requests.exceptions.Timeout:
-        return False, time.time() - start, "Timeout"
+        return False, time.time() - start, "请求超时（超过30秒）— 模型响应过慢或服务不可用"
     except Exception as e:
         return False, time.time() - start, str(e)
 
