@@ -109,7 +109,7 @@ ERROR_HINTS = {
 
 
 def _do_request(model: str) -> requests.Response:
-    if "codex" in model or model == "mog-5":
+    if model == "mog-5":
         return requests.post(
             "https://aiplatform.zjsk.cc/api/v1/responses",
             headers={
@@ -121,6 +121,26 @@ def _do_request(model: str) -> requests.Response:
             json={"model": model, "input": "Reply with OK only.", "stream": True},
             timeout=60,
         )
+    if "codex" in model:
+        resp = requests.post(
+            "https://aiplatform.zjsk.cc/v1/responses",
+            headers={
+                "Authorization": f"Bearer {API_KEY}",
+                "Content-Type": "application/json",
+                "sec-ch-ua-platform": '"macOS"',
+                "accept": "text/event-stream",
+            },
+            json={"model": model, "input": "Reply with OK only.", "stream": True},
+            timeout=60,
+        )
+        if resp.status_code == 404 and "Invalid URL (POST /api/v1/responses)" in (resp.text or ""):
+            return requests.post(
+                f"{API_BASE_URL.rstrip('/')}/chat/completions",
+                headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
+                json={"model": model, "messages": [{"role": "user", "content": "Reply with OK only."}], "max_tokens": 16},
+                timeout=60,
+            )
+        return resp
     if "gemini" in model:
         return requests.post(
             f"https://aiplatform.zjsk.cc/api/v1beta/models/{model}:generateContent?alt=sse",
