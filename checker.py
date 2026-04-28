@@ -143,7 +143,7 @@ def _do_request(model: str) -> requests.Response:
         return resp
     if "gemini" in model:
         return requests.post(
-            f"https://aiplatform.zjsk.cc/api/v1beta/models/{model}:generateContent?alt=sse",
+            f"https://aiplatform.zjsk.cc/v1beta/models/{model}:generateContent?alt=sse",
             headers={"Authorization": API_KEY, "Content-Type": "application/json"},
             json={
                 "contents": [{"role": "user", "parts": [{"text": "Reply with OK only."}]}],
