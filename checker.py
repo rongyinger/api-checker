@@ -40,7 +40,6 @@ MODELS = [
     "claude-opus-4-6",
     "claude-opus-4-7-stable",
     # Gemini
-    "gemini-2.0-flash",
     "gemini-2.5-flash-lite",
     "gemini-2.5-flash",
     "gemini-2.5-pro",
