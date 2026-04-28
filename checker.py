@@ -112,17 +112,26 @@ def _do_request(model: str) -> requests.Response:
     if "codex" in model or model == "mog-5":
         return requests.post(
             "https://aiplatform.zjsk.cc/api/v1/responses",
-            headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
+            headers={
+                "Authorization": f"Bearer {API_KEY}",
+                "Content-Type": "application/json",
+                "sec-ch-ua-platform": '"Windows"',
+                "accept": "text/event-stream",
+            },
             json={"model": model, "input": "Reply with OK only.", "stream": False},
             timeout=60,
         )
     if "gemini" in model:
         return requests.post(
-            f"https://aiplatform.zjsk.cc/api/v1beta/models/{model}:generateContent",
+            f"https://aiplatform.zjsk.cc/api/v1beta/models/{model}:generateContent?alt=sse",
             headers={"Authorization": API_KEY, "Content-Type": "application/json"},
             json={
                 "contents": [{"role": "user", "parts": [{"text": "Reply with OK only."}]}],
-                "generationConfig": {"maxOutputTokens": 10},
+                "generationConfig": {
+                    "temperature": 0,
+                    "topP": 1,
+                    "maxOutputTokens": 10,
+                },
             },
             timeout=60,
         )
