@@ -109,6 +109,23 @@ ERROR_HINTS = {
 
 
 def _do_request(model: str) -> requests.Response:
+    if "codex" in model or model == "mog-5":
+        return requests.post(
+            "https://aiplatform.zjsk.cc/api/v1/responses",
+            headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
+            json={"model": model, "input": "Reply with OK only.", "stream": False},
+            timeout=60,
+        )
+    if "gemini" in model:
+        return requests.post(
+            f"https://aiplatform.zjsk.cc/api/v1beta/models/{model}:generateContent",
+            headers={"Authorization": API_KEY, "Content-Type": "application/json"},
+            json={
+                "contents": [{"role": "user", "parts": [{"text": "Reply with OK only."}]}],
+                "generationConfig": {"maxOutputTokens": 10},
+            },
+            timeout=60,
+        )
     return requests.post(
         f"{API_BASE_URL.rstrip('/')}/chat/completions",
         headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
