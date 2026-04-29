@@ -1,0 +1,44 @@
+name: Cleanup Old Data
+
+on:
+  schedule:
+    - cron: "0 16 * * *"  # Beijing 00:00 = UTC 16:00
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove data older than 7 days
+        run: |
+          python3 -c "
+          import csv, os, sys
+          from datetime import datetime, timedelta, timezone
+          path = 'docs/data.csv'
+          if not os.path.exists(path):
+              sys.exit(0)
+          cutoff = (datetime.now(timezone.utc) - timedelta(days=7)).strftime('%Y-%m-%d')
+          rows = []
+          with open(path, newline='', encoding='utf-8') as f:
+              r = csv.reader(f)
+              header = next(r)
+              rows = [row for row in r if row and row[0][:10] >= cutoff]
+          with open(path, 'w', newline='', encoding='utf-8') as f:
+              w = csv.writer(f)
+              w.writerow(header)
+              w.writerows(rows)
+          print(f'Kept {len(rows)} rows after cleanup')
+          "
+
+      - name: Commit cleanup
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add docs/data.csv
+          git diff --staged --quiet || git commit -m "chore: cleanup data older than 7 days"
+          git push

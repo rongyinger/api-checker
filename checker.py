@@ -1,4 +1,5 @@
 import os
+import csv
 import time
 import hmac
 import hashlib
@@ -222,20 +223,22 @@ def main():
         status = "✅" if ok else "❌"
         note = f"{elapsed:.1f}s" if ok else f"{elapsed:.1f}s ({err})"
         note = note.replace("|", "\\|").replace("\n", " ")
-        rows.append((status, model, note))
+        rows.append((status, model, note, ok, elapsed, err))
         if not ok:
             any_fail = True
         print(f"{status} {model} {note}")
 
     from datetime import datetime, timezone, timedelta
-    now = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S CST")
+    now_dt = datetime.now(timezone(timedelta(hours=8)))
+    now = now_dt.strftime("%Y-%m-%d %H:%M:%S CST")
+    ts = now_dt.strftime("%Y-%m-%d %H:%M")
 
     lines = [
         f"### API Model Check — {now}\n",
         "| 状态 | 模型 | 耗时 |",
         "| --- | --- | --- |",
     ]
-    for status, model, note in rows:
+    for status, model, note, *_ in rows:
         lines.append(f"| {status} | `{model}` | {note} |")
 
     if any_fail:
@@ -243,6 +246,18 @@ def main():
 
     send_dingtalk("\n".join(lines), at_all=any_fail)
     print("Report sent to DingTalk.")
+
+    csv_path = "docs/data.csv"
+    os.makedirs("docs", exist_ok=True)
+    write_header = not os.path.exists(csv_path)
+    with open(csv_path, "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        if write_header:
+            writer.writerow(["timestamp", "model", "latency", "status", "error"])
+        for _, model, _, ok, elapsed, err in rows:
+            short_err = (err or "").replace("\n", " ")[:200]
+            writer.writerow([ts, model, round(elapsed, 3) if ok else -1, "ok" if ok else "fail", short_err])
+    print(f"Data appended to {csv_path}.")
 
 
 if __name__ == "__main__":

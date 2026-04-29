@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Model Status</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #c9d1d9; --muted: #8b949e;
+  --green: #3fb950; --red: #f85149; --blue: #58a6ff; --purple: #d2a8ff;
+}
+body {
+  background: var(--bg); color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  font-size: 14px; line-height: 1.5;
+  padding: 20px 16px; max-width: 1200px; margin: 0 auto;
+}
+header { margin-bottom: 24px; }
+header h1 { font-size: 1.4rem; color: var(--blue); font-weight: 700; }
+header p { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+.cards {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 12px; margin-bottom: 24px;
+}
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+.card-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
+.card-value { font-size: 1.8rem; font-weight: 700; line-height: 1; }
+.card-value.blue { color: var(--blue); }
+.card-value.green { color: var(--green); }
+.card-value.red { color: var(--red); }
+.card-value.sm { font-size: 0.9rem; line-height: 1.4; }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+.panel h2 { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 16px; }
+.chart-wrap { position: relative; height: 280px; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 6px 10px; font-size: 0.72rem; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--border); white-space: nowrap; }
+td { padding: 7px 10px; border-bottom: 1px solid rgba(48,54,61,.5); font-size: 0.8rem; vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.025); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 700; letter-spacing: .02em; }
+.ok  { background: rgba(63,185,80,.15);  color: var(--green); }
+.fail{ background: rgba(248,81,73,.15);  color: var(--red);   }
+.insight { font-size: 0.88rem; line-height: 1.9; }
+.hl  { color: var(--blue);  font-weight: 600; }
+.hl-g{ color: var(--green); font-weight: 600; }
+.hl-r{ color: var(--red);   font-weight: 600; }
+.overflow { overflow-x: auto; }
+@media(max-width:480px){
+  .chart-wrap{ height: 200px; }
+  td,th{ padding: 5px 6px; }
+  .card-value{ font-size: 1.4rem; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>API Model Status Dashboard</h1>
+  <p>每20分钟自动检测 · 数据保留7天</p>
+</header>
+
+<div class="cards">
+  <div class="card"><div class="card-label">Total Models</div><div class="card-value blue"  id="cTotal">—</div></div>
+  <div class="card"><div class="card-label">Currently OK</div><div class="card-value green" id="cOk">—</div></div>
+  <div class="card"><div class="card-label">Failing</div><div class="card-value red"   id="cFail">—</div></div>
+  <div class="card"><div class="card-label">Last Check</div><div class="card-value sm"  id="cLast">—</div></div>
+</div>
+
+<div class="panel">
+  <h2>Latency Trend &nbsp;·&nbsp; 点击图例切换显示（默认仅显示前5个模型）</h2>
+  <div class="chart-wrap"><canvas id="chart"></canvas></div>
+</div>
+
+<div class="panel">
+  <h2>Model Statistics &nbsp;·&nbsp; 按延迟波动从大到小排序</h2>
+  <div class="overflow">
+    <table>
+      <thead><tr>
+        <th>Model</th><th>Status</th>
+        <th>Avg (s)</th><th>Min (s)</th><th>Max (s)</th>
+        <th>Variance</th><th>24h OK%</th>
+      </tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Peak Analysis</h2>
+  <div class="insight" id="peakText">加载中…</div>
+</div>
+
+<div class="panel">
+  <h2>Summary Report</h2>
+  <div class="insight" id="reportText">加载中…</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+const COLORS = [
+  '#58a6ff','#3fb950','#f78166','#d2a8ff','#ffa657',
+  '#79c0ff','#56d364','#ff7b72','#bc8cff','#ffb74d',
+  '#4fc3f7','#81c784','#e57373','#ba68c8','#ffb300',
+  '#26c6da','#66bb6a','#ef5350','#ab47bc','#ffa726',
+  '#29b6f6','#a5d6a7','#ef9a9a','#ce93d8','#ffe082',
+];
+
+async function loadCSV() {
+  const r = await fetch('./data.csv?t=' + Date.now());
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  const text = await r.text();
+  const lines = text.trim().split('\n').filter(l => l.trim());
+  if (lines.length < 2) return [];
+  return lines.slice(1).map(line => {
+    const p = line.split(',');
+    return { timestamp: p[0], model: p[1], latency: parseFloat(p[2]), status: p[3], error: p.slice(4).join(',') };
+  });
+}
+
+function fmt(n) { return (n !== null && n >= 0) ? n.toFixed(2) : '—'; }
+
+async function main() {
+  let rows;
+  try { rows = await loadCSV(); }
+  catch (e) {
+    document.getElementById('reportText').textContent = '无法加载 data.csv：' + e.message;
+    return;
+  }
+  if (!rows.length) {
+    ['cTotal','cOk','cFail','cLast','peakText','reportText']
+      .forEach(id => document.getElementById(id).textContent = '暂无数据');
+    return;
+  }
+
+  const models = [...new Set(rows.map(r => r.model))];
+  const timestamps = [...new Set(rows.map(r => r.timestamp))].sort();
+  const latestTs = timestamps[timestamps.length - 1];
+  const latestRows = rows.filter(r => r.timestamp === latestTs);
+
+  document.getElementById('cTotal').textContent = models.length;
+  document.getElementById('cOk').textContent   = latestRows.filter(r => r.status === 'ok').length;
+  document.getElementById('cFail').textContent  = latestRows.filter(r => r.status === 'fail').length;
+  document.getElementById('cLast').textContent  = latestTs;
+
+  // Chart
+  const displayTs = timestamps.map(t => t.slice(5));
+  const datasets = models.map((model, i) => ({
+    label: model,
+    data: timestamps.map(ts => {
+      const row = rows.find(r => r.model === model && r.timestamp === ts);
+      return (row && row.status === 'ok') ? row.latency : null;
+    }),
+    borderColor: COLORS[i % COLORS.length],
+    backgroundColor: 'transparent',
+    borderWidth: 1.5, tension: 0.3, pointRadius: 2,
+    spanGaps: false, hidden: i >= 5,
+  }));
+
+  new Chart(document.getElementById('chart'), {
+    type: 'line',
+    data: { labels: displayTs, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          labels: { color: '#c9d1d9', font: { size: 10 }, boxWidth: 10, padding: 8 },
+          onClick(e, item, legend) {
+            const meta = legend.chart.getDatasetMeta(item.datasetIndex);
+            meta.hidden = !meta.hidden;
+            legend.chart.update();
+          },
+        },
+        tooltip: {
+          backgroundColor: '#21262d', borderColor: '#30363d', borderWidth: 1,
+          titleColor: '#c9d1d9', bodyColor: '#8b949e',
+        },
+      },
+      scales: {
+        x: {
+          ticks: { color: '#8b949e', font: { size: 10 }, maxRotation: 45, autoSkip: true, maxTicksLimit: 12 },
+          grid: { color: '#21262d' },
+        },
+        y: {
+          min: 0,
+          ticks: { color: '#8b949e', font: { size: 10 } },
+          grid: { color: '#21262d' },
+          title: { display: true, text: 'Latency (s)', color: '#8b949e', font: { size: 11 } },
+        },
+      },
+    },
+  });
+
+  // Per-model stats
+  const cutoff24 = new Date(Date.now() - 86400000);
+  const stats = models.map(model => {
+    const mRows = rows.filter(r => r.model === model);
+    const lats  = mRows.filter(r => r.status === 'ok').map(r => r.latency);
+    const avg  = lats.length ? lats.reduce((a, b) => a + b, 0) / lats.length : -1;
+    const min  = lats.length ? Math.min(...lats) : -1;
+    const max  = lats.length ? Math.max(...lats) : -1;
+    const vari = (min >= 0 && max >= 0) ? max - min : -1;
+    const r24  = mRows.filter(r => new Date(r.timestamp) >= cutoff24);
+    const rate = r24.length ? Math.round(r24.filter(r => r.status === 'ok').length / r24.length * 100) : 0;
+    const cur  = mRows.filter(r => r.timestamp === latestTs)[0];
+    return { model, status: cur ? cur.status : 'unknown', avg, min, max, vari, rate };
+  }).sort((a, b) => b.vari - a.vari);
+
+  const tbody = document.getElementById('tableBody');
+  stats.forEach(s => {
+    const tr = document.createElement('tr');
+    const badge = s.status === 'ok'
+      ? '<span class="badge ok">OK</span>'
+      : s.status === 'fail'
+        ? '<span class="badge fail">FAIL</span>'
+        : '<span class="badge" style="color:var(--muted)">—</span>';
+    tr.innerHTML = `<td>${s.model}</td><td>${badge}</td>
+      <td>${fmt(s.avg)}</td><td>${fmt(s.min)}</td><td>${fmt(s.max)}</td>
+      <td>${s.vari >= 0 ? s.vari.toFixed(2) : '—'}</td><td>${s.rate}%</td>`;
+    tbody.appendChild(tr);
+  });
+
+  // Peak analysis by hour
+  const byHour = {};
+  rows.filter(r => r.status === 'ok').forEach(r => {
+    const h = r.timestamp.slice(11, 13);
+    (byHour[h] = byHour[h] || []).push(r.latency);
+  });
+  const hourArr = Object.entries(byHour).map(([h, lats]) => ({
+    h, avg: lats.reduce((a, b) => a + b, 0) / lats.length,
+  }));
+  if (hourArr.length >= 2) {
+    const peak = hourArr.reduce((a, b) => a.avg > b.avg ? a : b);
+    const low  = hourArr.reduce((a, b) => a.avg < b.avg ? a : b);
+    const next = h => String((parseInt(h) + 1) % 24).padStart(2, '0');
+    document.getElementById('peakText').innerHTML =
+      `今日延迟最高时段：<span class="hl-r">${peak.h}:00–${next(peak.h)}:00</span>（平均 ${peak.avg.toFixed(2)}s）<br>` +
+      `今日延迟最低时段：<span class="hl-g">${low.h}:00–${next(low.h)}:00</span>（平均 ${low.avg.toFixed(2)}s）`;
+  } else {
+    document.getElementById('peakText').textContent = '数据不足，无法分析时段规律（需覆盖多个小时）。';
+  }
+
+  // Summary report
+  const rows24 = rows.filter(r => new Date(r.timestamp) >= cutoff24);
+  const runs24 = new Set(rows24.map(r => r.timestamp)).size;
+  const rate24 = rows24.length
+    ? Math.round(rows24.filter(r => r.status === 'ok').length / rows24.length * 100) : 0;
+  const stable = stats.filter(s => s.vari >= 0);
+  const mostStable   = stable.length ? stable[stable.length - 1] : null;
+  const mostUnstable = stable.length ? stable[0] : null;
+  const failing = stats.filter(s => s.status === 'fail').map(s => s.model);
+
+  let html = `过去24小时共测试 <span class="hl">${runs24}</span> 次，平均成功率 <span class="hl">${rate24}%</span>。`;
+  if (mostStable) {
+    html += ` 延迟最稳定的模型是 <span class="hl-g">${mostStable.model}</span>（平均 ${fmt(mostStable.avg)}s，波动 ${mostStable.vari >= 0 ? mostStable.vari.toFixed(1) : '—'}s）`;
+  }
+  if (mostUnstable && mostUnstable.model !== mostStable?.model) {
+    html += `，延迟最不稳定的是 <span class="hl-r">${mostUnstable.model}</span>（波动 ${mostUnstable.vari.toFixed(1)}s）`;
+  }
+  html += '。';
+  if (failing.length) {
+    html += ` 建议关注：<span class="hl-r">${failing.slice(0, 5).join('、')}</span> 等模型当前不可用。`;
+  } else {
+    html += ' 当前所有模型均正常。';
+  }
+  document.getElementById('reportText').innerHTML = html;
+}
+
+main();
+</script>
+</body>
+</html>
