@@ -148,7 +148,7 @@ def _do_request(model: str) -> requests.Response:
         body["seed"] = 1
     if "qwen3" in model or "qwq" in model:
         body["enable_thinking"] = False
-    if "qwq" in model:
+    if "qwq" in model or model == "qwen3-32b":
         body["stream"] = True
     return requests.post(
         f"{API_BASE_URL.rstrip('/')}/chat/completions",
