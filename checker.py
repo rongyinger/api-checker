@@ -146,6 +146,8 @@ def _do_request(model: str) -> requests.Response:
     body: dict = {"model": model, "messages": [{"role": "user", "content": "Reply with OK only."}], "max_tokens": 16}
     if "hunyuan" in model:
         body["seed"] = 1
+    if "qwen3" in model or "qwq" in model:
+        body["enable_thinking"] = False
     if "qwq" in model:
         body["stream"] = True
     return requests.post(
