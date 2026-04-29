@@ -3,81 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>API Model Status</title>
+<title>API Model Status Dashboard</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg: #0d1117; --surface: #161b22; --border: #30363d;
-  --text: #c9d1d9; --muted: #8b949e;
-  --green: #3fb950; --red: #f85149; --blue: #58a6ff; --purple: #d2a8ff;
+  --bg:      #080809;
+  --s1:      #101013;
+  --s2:      #16161a;
+  --border:  #26262c;
+  --border2: #36363e;
+  --text:    #e6e6ea;
+  --muted:   #8a8a96;
+  --dim:     #52525e;
+  --green:   #22c55e;
+  --yellow:  #eab308;
+  --red:     #ef4444;
+  --blue:    #6366f1;
 }
 body {
-  background: var(--bg); color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-  font-size: 14px; line-height: 1.5;
-  padding: 20px 16px; max-width: 1200px; margin: 0 auto;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 28px 20px;
+  max-width: 1320px;
+  margin: 0 auto;
 }
-header { margin-bottom: 24px; }
-header h1 { font-size: 1.4rem; color: var(--blue); font-weight: 700; }
-header p { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+header { margin-bottom: 28px; }
+.header-title {
+  font-size: 1.35rem; font-weight: 700;
+  letter-spacing: -0.025em; color: var(--text);
+}
+.header-sub { color: var(--muted); font-size: 0.78rem; margin-top: 4px; }
+
+/* ── Cards ── */
 .cards {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
-  gap: 12px; margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 10px; margin-bottom: 20px;
 }
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
-.card-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
-.card-value { font-size: 1.8rem; font-weight: 700; line-height: 1; }
-.card-value.blue { color: var(--blue); }
-.card-value.green { color: var(--green); }
-.card-value.red { color: var(--red); }
-.card-value.sm { font-size: 0.9rem; line-height: 1.4; }
-.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
-.panel h2 { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 16px; }
-.chart-wrap { position: relative; height: 280px; }
+.card {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  transition: border-color .15s;
+}
+.card:hover { border-color: var(--border2); }
+.card-label {
+  font-size: 0.67rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--muted); margin-bottom: 10px;
+}
+.card-value { font-size: 1.75rem; font-weight: 700; line-height: 1; letter-spacing: -.025em; }
+.c-blue   { color: #818cf8; }
+.c-green  { color: #4ade80; }
+.c-red    { color: #f87171; }
+.c-yellow { color: #facc15; }
+.c-text   { font-size: 0.88rem; line-height: 1.4; color: var(--text); }
+
+/* ── Panel ── */
+.panel {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px;
+  margin-bottom: 14px;
+}
+.panel-title {
+  font-size: 0.69rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .08em;
+  color: var(--muted); margin-bottom: 16px;
+}
+
+/* ── Vendor legend (chips) ── */
+.vendor-legend {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px;
+}
+.vchip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--s2);
+  cursor: pointer; user-select: none;
+  font-size: 0.74rem; font-weight: 500; color: var(--text);
+  transition: border-color .15s, opacity .15s;
+}
+.vchip.off { opacity: 0.28; }
+.vchip:hover { border-color: var(--border2); }
+.vdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.vcount { color: var(--dim); margin-left: 2px; }
+
+/* ── Chart ── */
+.chart-wrap { position: relative; height: 300px; }
+
+/* ── Filter bar ── */
+.filter-bar {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+}
+.filter-bar label { font-size: 0.76rem; color: var(--muted); }
+.filter-select {
+  background: var(--s2); border: 1px solid var(--border);
+  color: var(--text); padding: 5px 10px; border-radius: 7px;
+  font-size: 0.76rem; outline: none; cursor: pointer;
+  transition: border-color .15s;
+}
+.filter-select:focus { border-color: var(--blue); }
+
+/* ── Table ── */
 table { width: 100%; border-collapse: collapse; }
-th { text-align: left; padding: 6px 10px; font-size: 0.72rem; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--border); white-space: nowrap; }
-td { padding: 7px 10px; border-bottom: 1px solid rgba(48,54,61,.5); font-size: 0.8rem; vertical-align: middle; }
-tr:last-child td { border-bottom: none; }
-tr:hover td { background: rgba(255,255,255,.025); }
-.badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 700; letter-spacing: .02em; }
-.ok  { background: rgba(63,185,80,.15);  color: var(--green); }
-.fail{ background: rgba(248,81,73,.15);  color: var(--red);   }
-.insight { font-size: 0.88rem; line-height: 1.9; }
-.hl  { color: var(--blue);  font-weight: 600; }
-.hl-g{ color: var(--green); font-weight: 600; }
-.hl-r{ color: var(--red);   font-weight: 600; }
+th {
+  text-align: left; padding: 7px 12px;
+  font-size: 0.67rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--muted); border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+td {
+  padding: 8px 12px; border-bottom: 1px solid rgba(38,38,44,.7);
+  font-size: 0.79rem; vertical-align: middle;
+}
+tbody tr:nth-child(even) td { background: rgba(255,255,255,.014); }
+tbody tr:hover td           { background: rgba(255,255,255,.042) !important; }
+tbody tr:last-child td      { border-bottom: none; }
+tr.hidden-row { display: none; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 9px; border-radius: 20px;
+  font-size: 0.68rem; font-weight: 700;
+}
+.badge-ok   { background: rgba(74,222,128,.1);  color: #4ade80; }
+.badge-fail { background: rgba(248,113,113,.1); color: #f87171; }
+
+.ng { color: #4ade80;  font-weight: 600; }
+.ny { color: #facc15;  font-weight: 600; }
+.nr { color: #f87171;  font-weight: 600; }
+
+/* ── Insight blocks ── */
+.insight { font-size: 0.94rem; line-height: 2.1; }
+.insight p { margin-bottom: 2px; }
+.hl   { color: #818cf8; font-weight: 700; }
+.hl-g { color: #4ade80; font-weight: 700; }
+.hl-r { color: #f87171; font-weight: 700; }
+.hl-y { color: #facc15; font-weight: 700; }
+
 .overflow { overflow-x: auto; }
-@media(max-width:480px){
-  .chart-wrap{ height: 200px; }
-  td,th{ padding: 5px 6px; }
-  .card-value{ font-size: 1.4rem; }
+
+@media (max-width: 600px) {
+  .chart-wrap { height: 220px; }
+  td, th      { padding: 5px 7px; }
+  .card-value { font-size: 1.4rem; }
 }
 </style>
 </head>
 <body>
+
 <header>
-  <h1>API Model Status Dashboard</h1>
-  <p>每20分钟自动检测 · 数据保留7天</p>
+  <div class="header-title">API Model Status Dashboard</div>
+  <div class="header-sub">每20分钟自动检测 · 数据保留7天 · 点击厂商标签切换图表显示</div>
 </header>
 
 <div class="cards">
-  <div class="card"><div class="card-label">Total Models</div><div class="card-value blue"  id="cTotal">—</div></div>
-  <div class="card"><div class="card-label">Currently OK</div><div class="card-value green" id="cOk">—</div></div>
-  <div class="card"><div class="card-label">Failing</div><div class="card-value red"   id="cFail">—</div></div>
-  <div class="card"><div class="card-label">Last Check</div><div class="card-value sm"  id="cLast">—</div></div>
+  <div class="card"><div class="card-label">Total Models</div><div class="card-value c-blue"   id="cTotal">—</div></div>
+  <div class="card"><div class="card-label">Currently OK</div><div class="card-value c-green"  id="cOk">—</div></div>
+  <div class="card"><div class="card-label">Failing</div>      <div class="card-value c-red"    id="cFail">—</div></div>
+  <div class="card"><div class="card-label">Avg Latency</div>  <div class="card-value c-yellow" id="cAvg">—</div></div>
+  <div class="card"><div class="card-label">Last Check</div>   <div class="card-value c-text"   id="cLast">—</div></div>
 </div>
 
 <div class="panel">
-  <h2>Latency Trend &nbsp;·&nbsp; 点击图例切换显示（默认仅显示前5个模型）</h2>
+  <div class="panel-title">Latency Trend</div>
+  <div class="vendor-legend" id="vendorLegend"></div>
   <div class="chart-wrap"><canvas id="chart"></canvas></div>
 </div>
 
 <div class="panel">
-  <h2>Model Statistics &nbsp;·&nbsp; 按延迟波动从大到小排序</h2>
+  <div class="panel-title">Model Statistics — 按延迟波动排序</div>
+  <div class="filter-bar">
+    <label>筛选厂商</label>
+    <select class="filter-select" id="vendorFilter"><option value="">All Vendors</option></select>
+  </div>
   <div class="overflow">
     <table>
       <thead><tr>
-        <th>Model</th><th>Status</th>
+        <th>Model</th><th>Vendor</th><th>Status</th>
         <th>Avg (s)</th><th>Min (s)</th><th>Max (s)</th>
         <th>Variance</th><th>24h OK%</th>
       </tr></thead>
@@ -87,39 +197,72 @@ tr:hover td { background: rgba(255,255,255,.025); }
 </div>
 
 <div class="panel">
-  <h2>Peak Analysis</h2>
+  <div class="panel-title">⏱ Peak Analysis</div>
   <div class="insight" id="peakText">加载中…</div>
 </div>
 
 <div class="panel">
-  <h2>Summary Report</h2>
+  <div class="panel-title">📋 Summary Report</div>
   <div class="insight" id="reportText">加载中…</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-const COLORS = [
-  '#58a6ff','#3fb950','#f78166','#d2a8ff','#ffa657',
-  '#79c0ff','#56d364','#ff7b72','#bc8cff','#ffb74d',
-  '#4fc3f7','#81c784','#e57373','#ba68c8','#ffb300',
-  '#26c6da','#66bb6a','#ef5350','#ab47bc','#ffa726',
-  '#29b6f6','#a5d6a7','#ef9a9a','#ce93d8','#ffe082',
+// ── Vendor definitions ───────────────────────────────────────────────
+const VENDOR_DEFS = [
+  { name: 'OpenAI',   test: m => /^(GPT|gpt|mog)/i.test(m),                  h: 217, s: 82 },
+  { name: 'Claude',   test: m => m.startsWith('claude'),                       h: 265, s: 75 },
+  { name: 'Gemini',   test: m => m.startsWith('gemini'),                       h: 152, s: 70 },
+  { name: 'Kimi',     test: m => m.startsWith('kimi'),                         h: 195, s: 85 },
+  { name: 'MiMo',     test: m => m.startsWith('mimo'),                         h: 174, s: 75 },
+  { name: 'DeepSeek', test: m => m.startsWith('deepseek'),                     h: 24,  s: 85 },
+  { name: 'Qwen',     test: m => m.startsWith('qwen') || m.startsWith('qwq'), h: 42,  s: 90 },
+  { name: '智谱',      test: m => m.startsWith('glm'),                         h: 330, s: 75 },
+  { name: 'MiniMax',  test: m => m.startsWith('minimax'),                      h: 0,   s: 80 },
+  { name: '混元',      test: m => m.startsWith('hunyuan'),                     h: 244, s: 72 },
+  { name: '豆包',      test: m => m.startsWith('doubao'),                      h: 84,  s: 78 },
 ];
 
+function getVendor(model) {
+  return (VENDOR_DEFS.find(d => d.test(model)) || {}).name || 'Other';
+}
+function vendorBase(name) {
+  const v = VENDOR_DEFS.find(d => d.name === name);
+  return v ? `hsl(${v.h},${v.s}%,56%)` : '#888';
+}
+function modelColor(vendor, idx, total) {
+  const v = VENDOR_DEFS.find(d => d.name === vendor);
+  if (!v) return '#888';
+  const l = total <= 1 ? 55 : 38 + (idx / Math.max(total - 1, 1)) * 28;
+  return `hsl(${v.h},${v.s}%,${l.toFixed(0)}%)`;
+}
+
+// ── CSV loader ───────────────────────────────────────────────────────
 async function loadCSV() {
   const r = await fetch('./data.csv?t=' + Date.now());
   if (!r.ok) throw new Error('HTTP ' + r.status);
-  const text = await r.text();
-  const lines = text.trim().split('\n').filter(l => l.trim());
+  const lines = (await r.text()).trim().split('\n').filter(l => l.trim());
   if (lines.length < 2) return [];
   return lines.slice(1).map(line => {
     const p = line.split(',');
-    return { timestamp: p[0], model: p[1], latency: parseFloat(p[2]), status: p[3], error: p.slice(4).join(',') };
+    return { timestamp: p[0], model: p[1], latency: parseFloat(p[2]), status: p[3] };
   });
 }
 
-function fmt(n) { return (n !== null && n >= 0) ? n.toFixed(2) : '—'; }
+// ── Colour helpers ───────────────────────────────────────────────────
+const fmt = n => (n !== null && n >= 0) ? n.toFixed(2) : '—';
 
+function latCls(v) {
+  if (v < 0) return '';
+  return v < 3 ? 'ng' : v < 8 ? 'ny' : 'nr';
+}
+function varCls(v) {
+  if (v < 0) return '';
+  return v < 3 ? 'ng' : v < 8 ? 'ny' : 'nr';
+}
+function rateCls(r) { return r >= 90 ? 'ng' : r >= 70 ? 'ny' : 'nr'; }
+
+// ── Main ─────────────────────────────────────────────────────────────
 async function main() {
   let rows;
   try { rows = await loadCSV(); }
@@ -128,141 +271,201 @@ async function main() {
     return;
   }
   if (!rows.length) {
-    ['cTotal','cOk','cFail','cLast','peakText','reportText']
+    ['cTotal','cOk','cFail','cAvg','cLast','peakText','reportText']
       .forEach(id => document.getElementById(id).textContent = '暂无数据');
     return;
   }
 
-  const models = [...new Set(rows.map(r => r.model))];
+  const models     = [...new Set(rows.map(r => r.model))];
   const timestamps = [...new Set(rows.map(r => r.timestamp))].sort();
-  const latestTs = timestamps[timestamps.length - 1];
+  const latestTs   = timestamps[timestamps.length - 1];
   const latestRows = rows.filter(r => r.timestamp === latestTs);
+  const okNow      = latestRows.filter(r => r.status === 'ok');
+  const avgNow     = okNow.length
+    ? okNow.reduce((sum, r) => sum + r.latency, 0) / okNow.length : -1;
 
+  // Cards
   document.getElementById('cTotal').textContent = models.length;
-  document.getElementById('cOk').textContent   = latestRows.filter(r => r.status === 'ok').length;
+  document.getElementById('cOk').textContent    = okNow.length;
   document.getElementById('cFail').textContent  = latestRows.filter(r => r.status === 'fail').length;
+  document.getElementById('cAvg').textContent   = avgNow >= 0 ? avgNow.toFixed(1) + 's' : '—';
   document.getElementById('cLast').textContent  = latestTs;
+
+  // Group models → vendor
+  const vendorModels = {};
+  models.forEach(m => {
+    const v = getVendor(m);
+    (vendorModels[v] = vendorModels[v] || []).push(m);
+  });
+
+  const colorMap = {};
+  Object.entries(vendorModels).forEach(([v, ms]) =>
+    ms.forEach((m, i) => { colorMap[m] = modelColor(v, i, ms.length); })
+  );
 
   // Chart
   const displayTs = timestamps.map(t => t.slice(5));
-  const datasets = models.map((model, i) => ({
+  const datasets  = models.map(model => ({
     label: model,
     data: timestamps.map(ts => {
       const row = rows.find(r => r.model === model && r.timestamp === ts);
       return (row && row.status === 'ok') ? row.latency : null;
     }),
-    borderColor: COLORS[i % COLORS.length],
+    borderColor: colorMap[model],
     backgroundColor: 'transparent',
     borderWidth: 1.5, tension: 0.3, pointRadius: 2,
-    spanGaps: false, hidden: i >= 5,
+    spanGaps: false, hidden: false,
   }));
 
-  new Chart(document.getElementById('chart'), {
+  const chartInst = new Chart(document.getElementById('chart'), {
     type: 'line',
     data: { labels: displayTs, datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: {
-          labels: { color: '#c9d1d9', font: { size: 10 }, boxWidth: 10, padding: 8 },
-          onClick(e, item, legend) {
-            const meta = legend.chart.getDatasetMeta(item.datasetIndex);
-            meta.hidden = !meta.hidden;
-            legend.chart.update();
-          },
-        },
+        legend: { display: false },
         tooltip: {
-          backgroundColor: '#21262d', borderColor: '#30363d', borderWidth: 1,
-          titleColor: '#c9d1d9', bodyColor: '#8b949e',
+          backgroundColor: '#18181b', borderColor: '#26262c', borderWidth: 1,
+          titleColor: '#e6e6ea', bodyColor: '#8a8a96', padding: 10,
         },
       },
       scales: {
         x: {
-          ticks: { color: '#8b949e', font: { size: 10 }, maxRotation: 45, autoSkip: true, maxTicksLimit: 12 },
-          grid: { color: '#21262d' },
+          ticks: { color: '#52525e', font: { size: 10 }, maxRotation: 45, autoSkip: true, maxTicksLimit: 12 },
+          grid: { color: '#1a1a1e' },
         },
         y: {
           min: 0,
-          ticks: { color: '#8b949e', font: { size: 10 } },
-          grid: { color: '#21262d' },
-          title: { display: true, text: 'Latency (s)', color: '#8b949e', font: { size: 11 } },
+          ticks: { color: '#52525e', font: { size: 10 } },
+          grid: { color: '#1a1a1e' },
+          title: { display: true, text: 'Latency (s)', color: '#52525e', font: { size: 10 } },
         },
       },
     },
   });
 
-  // Per-model stats
+  // Vendor legend chips
+  const legendEl   = document.getElementById('vendorLegend');
+  const vendorOn   = {};
+  Object.keys(vendorModels).forEach(vendor => {
+    vendorOn[vendor] = true;
+    const chip = document.createElement('div');
+    chip.className = 'vchip';
+    chip.innerHTML =
+      `<span class="vdot" style="background:${vendorBase(vendor)}"></span>` +
+      `${vendor}<span class="vcount">${vendorModels[vendor].length}</span>`;
+    chip.addEventListener('click', () => {
+      vendorOn[vendor] = !vendorOn[vendor];
+      chip.classList.toggle('off', !vendorOn[vendor]);
+      models.forEach((m, i) => {
+        if (getVendor(m) === vendor)
+          chartInst.getDatasetMeta(i).hidden = !vendorOn[vendor];
+      });
+      chartInst.update();
+    });
+    legendEl.appendChild(chip);
+  });
+
+  // Vendor filter dropdown
+  const filterEl = document.getElementById('vendorFilter');
+  Object.keys(vendorModels).forEach(v => {
+    const o = document.createElement('option');
+    o.value = v; o.textContent = v;
+    filterEl.appendChild(o);
+  });
+  filterEl.addEventListener('change', () => {
+    const sel = filterEl.value;
+    document.querySelectorAll('#tableBody tr').forEach(tr =>
+      tr.classList.toggle('hidden-row', !!sel && tr.dataset.vendor !== sel)
+    );
+  });
+
+  // Per-model statistics
   const cutoff24 = new Date(Date.now() - 86400000);
   const stats = models.map(model => {
     const mRows = rows.filter(r => r.model === model);
     const lats  = mRows.filter(r => r.status === 'ok').map(r => r.latency);
-    const avg  = lats.length ? lats.reduce((a, b) => a + b, 0) / lats.length : -1;
-    const min  = lats.length ? Math.min(...lats) : -1;
-    const max  = lats.length ? Math.max(...lats) : -1;
-    const vari = (min >= 0 && max >= 0) ? max - min : -1;
-    const r24  = mRows.filter(r => new Date(r.timestamp) >= cutoff24);
-    const rate = r24.length ? Math.round(r24.filter(r => r.status === 'ok').length / r24.length * 100) : 0;
-    const cur  = mRows.filter(r => r.timestamp === latestTs)[0];
-    return { model, status: cur ? cur.status : 'unknown', avg, min, max, vari, rate };
+    const avg   = lats.length ? lats.reduce((s, v) => s + v, 0) / lats.length : -1;
+    const min   = lats.length ? Math.min(...lats) : -1;
+    const max   = lats.length ? Math.max(...lats) : -1;
+    const vari  = min >= 0 && max >= 0 ? max - min : -1;
+    const r24   = mRows.filter(r => new Date(r.timestamp) >= cutoff24);
+    const rate  = r24.length ? Math.round(r24.filter(r => r.status === 'ok').length / r24.length * 100) : 0;
+    const cur   = mRows.filter(r => r.timestamp === latestTs)[0];
+    return { model, vendor: getVendor(model), status: cur ? cur.status : 'unknown', avg, min, max, vari, rate };
   }).sort((a, b) => b.vari - a.vari);
 
   const tbody = document.getElementById('tableBody');
   stats.forEach(s => {
-    const tr = document.createElement('tr');
+    const tr  = document.createElement('tr');
+    tr.dataset.vendor = s.vendor;
     const badge = s.status === 'ok'
-      ? '<span class="badge ok">OK</span>'
+      ? '<span class="badge badge-ok">● OK</span>'
       : s.status === 'fail'
-        ? '<span class="badge fail">FAIL</span>'
-        : '<span class="badge" style="color:var(--muted)">—</span>';
-    tr.innerHTML = `<td>${s.model}</td><td>${badge}</td>
-      <td>${fmt(s.avg)}</td><td>${fmt(s.min)}</td><td>${fmt(s.max)}</td>
-      <td>${s.vari >= 0 ? s.vari.toFixed(2) : '—'}</td><td>${s.rate}%</td>`;
+        ? '<span class="badge badge-fail">● FAIL</span>'
+        : '—';
+    tr.innerHTML =
+      `<td style="font-family:monospace;font-size:.74rem;color:var(--muted)">${s.model}</td>` +
+      `<td><span style="color:${vendorBase(s.vendor)};font-weight:600;font-size:.74rem">${s.vendor}</span></td>` +
+      `<td>${badge}</td>` +
+      `<td class="${latCls(s.avg)}">${fmt(s.avg)}</td>` +
+      `<td class="${latCls(s.min)}">${fmt(s.min)}</td>` +
+      `<td class="${latCls(s.max)}">${fmt(s.max)}</td>` +
+      `<td class="${varCls(s.vari)}">${s.vari >= 0 ? s.vari.toFixed(2) : '—'}</td>` +
+      `<td class="${rateCls(s.rate)}">${s.rate}%</td>`;
     tbody.appendChild(tr);
   });
 
-  // Peak analysis by hour
+  // Peak analysis
   const byHour = {};
   rows.filter(r => r.status === 'ok').forEach(r => {
     const h = r.timestamp.slice(11, 13);
     (byHour[h] = byHour[h] || []).push(r.latency);
   });
   const hourArr = Object.entries(byHour).map(([h, lats]) => ({
-    h, avg: lats.reduce((a, b) => a + b, 0) / lats.length,
+    h, avg: lats.reduce((s, v) => s + v, 0) / lats.length, count: lats.length,
   }));
+  const peakEl = document.getElementById('peakText');
   if (hourArr.length >= 2) {
-    const peak = hourArr.reduce((a, b) => a.avg > b.avg ? a : b);
-    const low  = hourArr.reduce((a, b) => a.avg < b.avg ? a : b);
-    const next = h => String((parseInt(h) + 1) % 24).padStart(2, '0');
-    document.getElementById('peakText').innerHTML =
-      `今日延迟最高时段：<span class="hl-r">${peak.h}:00–${next(peak.h)}:00</span>（平均 ${peak.avg.toFixed(2)}s）<br>` +
-      `今日延迟最低时段：<span class="hl-g">${low.h}:00–${next(low.h)}:00</span>（平均 ${low.avg.toFixed(2)}s）`;
+    const next  = h => String((parseInt(h) + 1) % 24).padStart(2, '0');
+    const peak  = hourArr.reduce((a, b) => a.avg > b.avg ? a : b);
+    const low   = hourArr.reduce((a, b) => a.avg < b.avg ? a : b);
+    peakEl.innerHTML =
+      `<p>🔴 延迟最高时段：<span class="hl-r">${peak.h}:00–${next(peak.h)}:00</span>，` +
+      `平均响应 <span class="hl-r">${peak.avg.toFixed(2)}s</span>（共 ${peak.count} 条记录）</p>` +
+      `<p>🟢 延迟最低时段：<span class="hl-g">${low.h}:00–${next(low.h)}:00</span>，` +
+      `平均响应 <span class="hl-g">${low.avg.toFixed(2)}s</span>（共 ${low.count} 条记录）</p>` +
+      `<p style="color:var(--muted);font-size:.78rem;margin-top:6px">🕐 基于全部历史记录，时间为北京时间</p>`;
   } else {
-    document.getElementById('peakText').textContent = '数据不足，无法分析时段规律（需覆盖多个小时）。';
+    peakEl.textContent = '⏳ 数据不足，无法分析时段规律（需覆盖多个小时）。';
   }
 
   // Summary report
-  const rows24 = rows.filter(r => new Date(r.timestamp) >= cutoff24);
-  const runs24 = new Set(rows24.map(r => r.timestamp)).size;
-  const rate24 = rows24.length
+  const rows24  = rows.filter(r => new Date(r.timestamp) >= cutoff24);
+  const runs24  = new Set(rows24.map(r => r.timestamp)).size;
+  const rate24  = rows24.length
     ? Math.round(rows24.filter(r => r.status === 'ok').length / rows24.length * 100) : 0;
-  const stable = stats.filter(s => s.vari >= 0);
+  const stable       = stats.filter(s => s.vari >= 0);
   const mostStable   = stable.length ? stable[stable.length - 1] : null;
   const mostUnstable = stable.length ? stable[0] : null;
-  const failing = stats.filter(s => s.status === 'fail').map(s => s.model);
+  const failing      = stats.filter(s => s.status === 'fail').map(s => s.model);
 
-  let html = `过去24小时共测试 <span class="hl">${runs24}</span> 次，平均成功率 <span class="hl">${rate24}%</span>。`;
+  const rateHl = rate24 >= 90 ? 'hl-g' : rate24 >= 70 ? 'hl-y' : 'hl-r';
+  let html = `<p>📊 过去24小时共测试 <span class="hl">${runs24}</span> 次，平均成功率 <span class="${rateHl}">${rate24}%</span>。</p>`;
   if (mostStable) {
-    html += ` 延迟最稳定的模型是 <span class="hl-g">${mostStable.model}</span>（平均 ${fmt(mostStable.avg)}s，波动 ${mostStable.vari >= 0 ? mostStable.vari.toFixed(1) : '—'}s）`;
+    html += `<p>🏆 延迟最稳定：<span class="hl-g">${mostStable.model}</span>` +
+      `（平均 ${fmt(mostStable.avg)}s，波动仅 ${mostStable.vari >= 0 ? mostStable.vari.toFixed(1) : '—'}s）</p>`;
   }
   if (mostUnstable && mostUnstable.model !== mostStable?.model) {
-    html += `，延迟最不稳定的是 <span class="hl-r">${mostUnstable.model}</span>（波动 ${mostUnstable.vari.toFixed(1)}s）`;
+    html += `<p>⚡ 延迟最不稳定：<span class="hl-r">${mostUnstable.model}</span>` +
+      `（波动 ${mostUnstable.vari.toFixed(1)}s，建议关注）</p>`;
   }
-  html += '。';
   if (failing.length) {
-    html += ` 建议关注：<span class="hl-r">${failing.slice(0, 5).join('、')}</span> 等模型当前不可用。`;
+    const preview = failing.slice(0, 5).join('、') + (failing.length > 5 ? `…等 ${failing.length} 个` : '');
+    html += `<p>🚨 当前不可用：<span class="hl-r">${preview}</span></p>`;
   } else {
-    html += ' 当前所有模型均正常。';
+    html += `<p>✅ 当前所有 <span class="hl-g">${models.length}</span> 个模型均正常可用。</p>`;
   }
   document.getElementById('reportText').innerHTML = html;
 }
