@@ -40,6 +40,11 @@ MODELS = [
     "claude-opus-4-5-20251101",
     "claude-opus-4-6",
     "claude-opus-4-7-stable",
+    "claude-sonnet-4-5-20250929-stable",
+    "claude-sonnet-4-6-stable",
+    "claude-haiku-4-5-20251001-stable",
+    "claude-opus-4-6-stable",
+    "claude-opus-4-5-20251101-stable",
     # Gemini
     "gemini-2.5-flash-lite",
     "gemini-2.5-flash",
