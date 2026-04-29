@@ -786,3 +786,75 @@ timestamp,model,latency,status,error
 2026-04-29 20:10,hunyuan-vision-1.5-instruct,2.381,ok,
 2026-04-29 20:10,hunyuan-t1-vision-20250916,-1,fail,"HTTP 503 - 服务暂时不可用，上游服务过载或维护中; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
 2026-04-29 20:10,doubao-seed-2-0-lite,4.035,ok,
+2026-04-29 22:42,GPT-4.1,2.638,ok,
+2026-04-29 22:42,GPT-4o,2.815,ok,
+2026-04-29 22:42,gpt-4o-2024-11-20,2.113,ok,
+2026-04-29 22:42,gpt-4o-2024-08-06,2.945,ok,
+2026-04-29 22:42,gpt-4o-mini-2024-07-18,2.049,ok,
+2026-04-29 22:42,gpt-5,-1,fail,"HTTP 503 - 服务暂时不可用，上游服务过载或维护中; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-04-29 22:42,gpt-5-codex,3.26,ok,
+2026-04-29 22:42,gpt-5.1,2.168,ok,
+2026-04-29 22:42,gpt-5.1-codex,3.636,ok,
+2026-04-29 22:42,gpt-5.2,2.38,ok,
+2026-04-29 22:42,gpt-5.2-codex,2.633,ok,
+2026-04-29 22:42,gpt-5.3-codex,3.948,ok,
+2026-04-29 22:42,gpt-5.4,-1,fail,"HTTP 503 - 服务暂时不可用，上游服务过载或维护中; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-04-29 22:42,gpt-oss-120b,-1,fail,"HTTP 503 - 服务暂时不可用，上游服务过载或维护中; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-04-29 22:42,mog-5,18.906,ok,
+2026-04-29 22:42,claude-3.7-sonnet-20250219,-1,fail,Request timeout (>60s) - model too slow or service unavailable
+2026-04-29 22:42,claude-sonnet-4-20250514,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""{\""error\"":{\""type\"":\""\\u003cnil\\u003e\"",\""message\"":\""555420: Your resource has been blocked because we detected unusual behavior. (request i"
+2026-04-29 22:42,claude-sonnet-4-5-20250929,-1,fail,Request timeout (>60s) - model too slow or service unavailable
+2026-04-29 22:42,claude-sonnet-4-6,-1,fail,Request timeout (>60s) - model too slow or service unavailable
+2026-04-29 22:42,claude-haiku-4-5-20251001,-1,fail,"HTTP 503 - 服务暂时不可用，上游服务过载或维护中; body={""error"":{""message"":""No available channel for model claude-haiku-4-5-20251001 under group az-claude (distributor) (request id: 202604291438096085968418268d9d6HCPifY"
+2026-04-29 22:42,claude-opus-4-20250514,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""{\""error\"":{\""type\"":\""\\u003cnil\\u003e\"",\""message\"":\""555420: Your resource has been blocked because we detected unusual behavior. (request i"
+2026-04-29 22:42,claude-opus-4-1-20250805,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""{\""error\"":{\""type\"":\""\\u003cnil\\u003e\"",\""message\"":\""555420: Your resource has been blocked because we detected unusual behavior. (request i"
+2026-04-29 22:42,claude-opus-4-5-20251101,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""{\""error\"":{\""type\"":\""\\u003cnil\\u003e\"",\""message\"":\""555420: Your resource has been blocked because we detected unusual behavior. (request i"
+2026-04-29 22:42,claude-opus-4-6,-1,fail,Request timeout (>60s) - model too slow or service unavailable
+2026-04-29 22:42,claude-opus-4-7-stable,3.34,ok,
+2026-04-29 22:42,claude-sonnet-4-5-20250929-stable,4.331,ok,
+2026-04-29 22:42,claude-sonnet-4-6-stable,7.629,ok,
+2026-04-29 22:42,claude-haiku-4-5-20251001-stable,3.272,ok,
+2026-04-29 22:42,claude-opus-4-6-stable,4.58,ok,
+2026-04-29 22:42,claude-opus-4-5-20251101-stable,-1,fail,"HTTP 503 - 服务暂时不可用，上游服务过载或维护中; body={""error"":{""message"":""No available channel for model claude-opus-4-5-20251101 under group az-claude (distributor) (request id: 202604291439571310056948268d9d6LUyYtSE"
+2026-04-29 22:42,gemini-2.5-flash-lite,2.07,ok,
+2026-04-29 22:42,gemini-2.5-flash,0.898,ok,
+2026-04-29 22:42,gemini-2.5-pro,3.594,ok,
+2026-04-29 22:42,gemini-3-flash-preview,0.898,ok,
+2026-04-29 22:42,gemini-3.1-flash-lite-preview,0.924,ok,
+2026-04-29 22:42,gemini-3.1-pro-preview,4.165,ok,
+2026-04-29 22:42,kimi-k2,1.477,ok,
+2026-04-29 22:42,kimi-k2-5-260127,1.302,ok,
+2026-04-29 22:42,kimi-k2-thinking,1.932,ok,
+2026-04-29 22:42,mimo-v2-flash,1.876,ok,
+2026-04-29 22:42,mimo-v2-pro,3.348,ok,
+2026-04-29 22:42,deepseek-v3,1.337,ok,
+2026-04-29 22:42,deepseek-v3-2-251201,2.02,ok,
+2026-04-29 22:42,deepseek-reasoner,2.224,ok,
+2026-04-29 22:42,deepseek-v3.1,2.104,ok,
+2026-04-29 22:42,deepseek-v3.2-speciale,4.849,ok,
+2026-04-29 22:42,deepseek-v4-flash,1.427,ok,
+2026-04-29 22:42,deepseek-v4-pro,-1,fail,Request timeout (>60s) - model too slow or service unavailable
+2026-04-29 22:42,qwen-flash,1.013,ok,
+2026-04-29 22:42,qwen-turbo,1.104,ok,
+2026-04-29 22:42,qwen-long,1.381,ok,
+2026-04-29 22:42,qwen-plus,1.162,ok,
+2026-04-29 22:42,qwen3.5-flash,2.195,ok,
+2026-04-29 22:42,qwen3.5-plus,4.354,ok,
+2026-04-29 22:42,qwen3.5-35b-a3b,2.302,ok,
+2026-04-29 22:42,qwen3.5-397b-a17b,1.263,ok,
+2026-04-29 22:42,qwen3-next,1.309,ok,
+2026-04-29 22:42,qwen3-32b,2.872,ok,
+2026-04-29 22:42,qwen3-max,1.538,ok,
+2026-04-29 22:42,qwen3-235b,1.22,ok,
+2026-04-29 22:42,qwen3-coder,1.481,ok,
+2026-04-29 22:42,qwen3-30b-a3b-instruct-2507,1.292,ok,
+2026-04-29 22:42,glm-4.6,10.361,ok,
+2026-04-29 22:42,glm-4.7,2.115,ok,
+2026-04-29 22:42,glm-5,6.096,ok,
+2026-04-29 22:42,glm-5.1,4.129,ok,
+2026-04-29 22:42,minimax-m2.5,2.285,ok,
+2026-04-29 22:42,minimax-m2.5-highspeed,2.857,ok,
+2026-04-29 22:42,minimax-m2.7,2.551,ok,
+2026-04-29 22:42,hunyuan-vision-1.5-instruct,2.266,ok,
+2026-04-29 22:42,hunyuan-t1-vision-20250916,1.854,ok,
+2026-04-29 22:42,doubao-seed-2-0-lite,2.412,ok,
