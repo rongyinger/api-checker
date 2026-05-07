@@ -219,6 +219,17 @@ def send_dingtalk(text: str, at_all: bool) -> None:
     requests.post(url, json=payload, timeout=10)
 
 
+_SKIP_KEYWORDS = (
+    "veo", "seedance", "sora", "kling", "imagen",
+    "wan2", "-image-preview",
+)
+
+
+def _is_generative_media(model: str) -> bool:
+    name = model.lower()
+    return any(kw in name for kw in _SKIP_KEYWORDS)
+
+
 def fetch_models() -> list[str]:
     try:
         resp = requests.get(
@@ -227,10 +238,11 @@ def fetch_models() -> list[str]:
         )
         resp.raise_for_status()
         data = resp.json().get("data", [])
-        models = [m["model_name"] for m in data if m.get("model_name")]
-        if models:
-            print(f"[INFO] 动态获取到 {len(models)} 个模型")
-            return models
+        all_models = [m["model_name"] for m in data if m.get("model_name")]
+        models = [m for m in all_models if not _is_generative_media(m)]
+        skipped = len(all_models) - len(models)
+        print(f"[INFO] 动态获取到 {len(models)} 个模型（跳过 {skipped} 个视频/图像生成模型）")
+        return models
     except Exception as e:
         print(f"[WARN] 获取模型列表失败，使用硬编码列表: {e}")
     return MODELS
