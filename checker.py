@@ -222,13 +222,12 @@ def send_dingtalk(text: str, at_all: bool) -> None:
 def fetch_models() -> list[str]:
     try:
         resp = requests.get(
-            "https://aiplatform.zjsk.cc/api/user/models",
-            headers={"Authorization": f"Bearer {API_KEY}"},
+            "https://aiplatform.zjsk.cc/api/pricing",
             timeout=15,
         )
         resp.raise_for_status()
         data = resp.json().get("data", [])
-        models = [m["id"] for m in data if m.get("id")]
+        models = [m["model_name"] for m in data if m.get("model_name")]
         if models:
             print(f"[INFO] 动态获取到 {len(models)} 个模型")
             return models

@@ -20,7 +20,7 @@ if _env_file.exists():
             os.environ.setdefault(_k.strip(), _v.strip())
 
 CSV_URL = "https://raw.githubusercontent.com/rongyinger/api-checker/main/docs/data.csv"
-MODELS_URL = "https://aiplatform.zjsk.cc/api/user/models"
+MODELS_URL = "https://aiplatform.zjsk.cc/api/pricing"
 LOCAL_CSV = Path(__file__).parent / "docs" / "data.csv"
 REFRESH_INTERVAL = 300  # seconds
 
@@ -56,13 +56,11 @@ def _parse_csv(text: str) -> list[dict]:
 
 async def _fetch_live_models(client: httpx.AsyncClient) -> list[str]:
     """Fetch current model list from the platform API. Returns empty list on failure."""
-    api_key = os.environ.get("API_KEY", "")
-    headers = {"Authorization": f"Bearer {api_key}"} if api_key else {}
     try:
-        resp = await client.get(MODELS_URL, headers=headers, timeout=15)
+        resp = await client.get(MODELS_URL, timeout=15)
         resp.raise_for_status()
         data = resp.json().get("data", [])
-        models = [m["id"] for m in data if m.get("id")]
+        models = [m["model_name"] for m in data if m.get("model_name")]
         if models:
             print(f"[INFO] Live model list: {len(models)} models")
         return models
