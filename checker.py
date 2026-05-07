@@ -222,7 +222,7 @@ def send_dingtalk(text: str, at_all: bool) -> None:
 def fetch_models() -> list[str]:
     try:
         resp = requests.get(
-            "https://aiplatform.zjsk.cc/api/models",
+            "https://aiplatform.zjsk.cc/api/user/models",
             headers={"Authorization": f"Bearer {API_KEY}"},
             timeout=15,
         )

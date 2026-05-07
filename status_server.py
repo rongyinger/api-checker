@@ -10,8 +10,17 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+# Load .env file from script directory if present (no extra deps needed)
+_env_file = Path(__file__).parent / ".env"
+if _env_file.exists():
+    for _line in _env_file.read_text(encoding="utf-8").splitlines():
+        _line = _line.strip()
+        if _line and not _line.startswith("#") and "=" in _line:
+            _k, _, _v = _line.partition("=")
+            os.environ.setdefault(_k.strip(), _v.strip())
+
 CSV_URL = "https://raw.githubusercontent.com/rongyinger/api-checker/main/docs/data.csv"
-# Local CSV path (relative to this script's directory)
+MODELS_URL = "https://aiplatform.zjsk.cc/api/user/models"
 LOCAL_CSV = Path(__file__).parent / "docs" / "data.csv"
 REFRESH_INTERVAL = 300  # seconds
 
@@ -45,31 +54,77 @@ def _parse_csv(text: str) -> list[dict]:
     return rows
 
 
-async def fetch_and_cache() -> None:
-    # 1. Try GitHub raw
+async def _fetch_live_models(client: httpx.AsyncClient) -> list[str]:
+    """Fetch current model list from the platform API. Returns empty list on failure."""
+    api_key = os.environ.get("API_KEY", "")
+    headers = {"Authorization": f"Bearer {api_key}"} if api_key else {}
     try:
-        async with httpx.AsyncClient(timeout=20) as client:
+        resp = await client.get(MODELS_URL, headers=headers, timeout=15)
+        resp.raise_for_status()
+        data = resp.json().get("data", [])
+        models = [m["id"] for m in data if m.get("id")]
+        if models:
+            print(f"[INFO] Live model list: {len(models)} models")
+        return models
+    except Exception as e:
+        print(f"[WARN] Failed to fetch live model list: {e}")
+        return []
+
+
+def _merge_with_live_models(rows: list[dict], live_models: list[str]) -> list[dict]:
+    """Add placeholder rows for live models that have no CSV history."""
+    if not live_models:
+        return rows
+
+    models_in_csv = {r["model"] for r in rows}
+    # Latest timestamp in CSV (used as placeholder timestamp)
+    latest_ts = max((r["timestamp"] for r in rows), default="") if rows else ""
+
+    new_rows = list(rows)
+    added = 0
+    for model in live_models:
+        if model not in models_in_csv:
+            new_rows.append({
+                "timestamp": latest_ts,
+                "model": model,
+                "latency": -1.0,
+                "status": "unknown",
+                "error": "no data yet",
+            })
+            added += 1
+
+    if added:
+        print(f"[INFO] Added {added} placeholder rows for new models")
+    return new_rows
+
+
+async def fetch_and_cache() -> None:
+    async with httpx.AsyncClient(timeout=30) as client:
+        # 1. Fetch CSV (try GitHub first, fall back to local)
+        csv_rows: list[dict] = []
+        try:
             resp = await client.get(CSV_URL)
             resp.raise_for_status()
-            rows = _parse_csv(resp.text)
-            _cache["rows"] = rows
-            _cache["updated_at"] = datetime.now(timezone.utc).isoformat()
-            print(f"[INFO] Fetched {len(rows)} rows from GitHub at {_cache['updated_at']}")
-            return
-    except Exception as e:
-        print(f"[WARN] GitHub fetch failed: {e}. Falling back to local file.")
-
-    # 2. Fallback: read local CSV
-    if LOCAL_CSV.exists():
-        try:
-            rows = _parse_csv(LOCAL_CSV.read_text(encoding="utf-8"))
-            _cache["rows"] = rows
-            _cache["updated_at"] = datetime.now(timezone.utc).isoformat()
-            print(f"[INFO] Loaded {len(rows)} rows from local file at {_cache['updated_at']}")
+            csv_rows = _parse_csv(resp.text)
+            print(f"[INFO] Fetched {len(csv_rows)} rows from GitHub")
         except Exception as e:
-            print(f"[ERROR] Local file read failed: {e}")
-    else:
-        print(f"[WARN] Local file not found: {LOCAL_CSV}")
+            print(f"[WARN] GitHub CSV fetch failed: {e}. Trying local file.")
+            if LOCAL_CSV.exists():
+                try:
+                    csv_rows = _parse_csv(LOCAL_CSV.read_text(encoding="utf-8"))
+                    print(f"[INFO] Loaded {len(csv_rows)} rows from local file")
+                except Exception as e2:
+                    print(f"[ERROR] Local file read failed: {e2}")
+
+        # 2. Fetch live model list
+        live_models = await _fetch_live_models(client)
+
+        # 3. Merge
+        rows = _merge_with_live_models(csv_rows, live_models)
+
+        _cache["rows"] = rows
+        _cache["updated_at"] = datetime.now(timezone.utc).isoformat()
+        print(f"[INFO] Cache updated: {len(rows)} total rows at {_cache['updated_at']}")
 
 
 async def refresh_loop() -> None:
