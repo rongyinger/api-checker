@@ -219,11 +219,29 @@ def send_dingtalk(text: str, at_all: bool) -> None:
     requests.post(url, json=payload, timeout=10)
 
 
+def fetch_models() -> list[str]:
+    try:
+        resp = requests.get(
+            "https://aiplatform.zjsk.cc/api/models",
+            headers={"Authorization": f"Bearer {API_KEY}"},
+            timeout=15,
+        )
+        resp.raise_for_status()
+        data = resp.json().get("data", [])
+        models = [m["id"] for m in data if m.get("id")]
+        if models:
+            print(f"[INFO] 动态获取到 {len(models)} 个模型")
+            return models
+    except Exception as e:
+        print(f"[WARN] 获取模型列表失败，使用硬编码列表: {e}")
+    return MODELS
+
+
 def main():
     rows = []
     any_fail = False
 
-    for model in MODELS:
+    for model in fetch_models():
         ok, elapsed, err = check_model(model)
         status = "✅" if ok else "❌"
         note = f"{elapsed:.1f}s" if ok else f"{elapsed:.1f}s ({err})"
