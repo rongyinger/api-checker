@@ -633,7 +633,12 @@ async function main() {
     const rate  = r24.length ? Math.round(r24.filter(r => r.status === 'ok').length / r24.length * 100) : 0;
     const cur   = mRows.filter(r => r.timestamp === latestTs)[0];
     return { model, vendor: getVendor(model), status: cur ? cur.status : 'unknown', avg, min, max, vari, rate };
-  }).sort((a, b) => a.vari - b.vari);
+  }).sort((a, b) => {
+    if (a.vari < 0 && b.vari < 0) return 0;
+    if (a.vari < 0) return 1;
+    if (b.vari < 0) return -1;
+    return a.vari - b.vari;
+  });
 
   const tbody = document.getElementById('tableBody');
   tbody.innerHTML = '';
