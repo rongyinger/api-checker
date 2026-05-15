@@ -20,8 +20,13 @@
   --red:     #ef4444;
   --blue:    #6366f1;
 }
+html {
+  min-height: 100%;
+  background: linear-gradient(135deg, #0a0f1e 0%, #0d1b2a 40%, #0a1628 70%, #060d1a 100%);
+  background-attachment: fixed;
+}
 body {
-  background: var(--bg);
+  background: transparent;
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Arial, sans-serif;
   font-size: 13px;
@@ -29,6 +34,34 @@ body {
   padding: 28px 20px;
   max-width: 1320px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Background glow orbs ── */
+.glow {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.glow-tl {
+  width: 600px; height: 600px;
+  top: -100px; left: -100px;
+  background: rgba(0,120,200,0.15);
+  filter: blur(120px);
+}
+.glow-br {
+  width: 600px; height: 600px;
+  bottom: -100px; right: -100px;
+  background: rgba(120,60,220,0.12);
+  filter: blur(120px);
+}
+.glow-mc {
+  width: 500px; height: 500px;
+  top: 30%; right: 20%;
+  background: rgba(0,180,150,0.08);
+  filter: blur(100px);
 }
 header {
   display: flex;
@@ -48,8 +81,10 @@ header {
   gap: 5px;
   padding: 5px 12px;
   border-radius: 8px;
-  background: var(--s2);
-  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.12);
   color: var(--muted);
   font-size: 0.74rem;
   white-space: nowrap;
@@ -69,13 +104,15 @@ header {
   gap: 10px; margin-bottom: 20px;
 }
 .card {
-  background: var(--s1);
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
   padding: 16px 18px;
   transition: border-color .15s;
 }
-.card:hover { border-color: var(--border2); }
+.card:hover { border-color: rgba(255,255,255,0.18); }
 .card-label {
   font-size: 0.67rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: .08em; color: var(--muted); margin-bottom: 10px;
@@ -90,8 +127,10 @@ header {
 
 /* ── Panel ── */
 .panel {
-  background: var(--s1);
-  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 10px;
   padding: 22px;
   margin-bottom: 14px;
@@ -148,9 +187,10 @@ th {
 td {
   padding: 10px 12px; border-bottom: 1px solid rgba(38,38,44,.7);
   font-size: 14px; vertical-align: middle;
+  transition: background .2s;
 }
 tbody tr:nth-child(even) td { background: rgba(255,255,255,.014); }
-tbody tr:hover td           { background: rgba(255,255,255,.042) !important; }
+tbody tr:hover td           { background: rgba(255,255,255,0.05) !important; }
 tbody tr:last-child td      { border-bottom: none; }
 tr.hidden-row { display: none; }
 
@@ -186,6 +226,10 @@ tr.hidden-row { display: none; }
 </style>
 </head>
 <body>
+
+<div class="glow glow-tl"></div>
+<div class="glow glow-br"></div>
+<div class="glow glow-mc"></div>
 
 <header>
   <div>
