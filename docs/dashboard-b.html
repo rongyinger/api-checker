@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B端API模型状态监控台</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #080809;
+  --s1:      #101013;
+  --s2:      #16161a;
+  --border:  #26262c;
+  --border2: #36363e;
+  --text:    #e6e6ea;
+  --muted:   #8a8a96;
+  --dim:     #52525e;
+  --green:   #22c55e;
+  --yellow:  #eab308;
+  --red:     #ef4444;
+  --blue:    #6366f1;
+}
+html {
+  min-height: 100%;
+  background: linear-gradient(135deg, #0a0f1e 0%, #0d1b2a 40%, #0a1628 70%, #060d1a 100%);
+  background-attachment: fixed;
+}
+body {
+  background: transparent;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 28px 20px;
+  max-width: 1320px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Background glow orbs ── */
+@keyframes drift-h {
+  from { transform: translateX(0);    }
+  to   { transform: translateX(45px); }
+}
+@keyframes drift-v {
+  from { transform: translateY(0);     }
+  to   { transform: translateY(-55px); }
+}
+@keyframes drift-d {
+  from { transform: translate(0, 0);         }
+  to   { transform: translate(32px, -32px);  }
+}
+.glow {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  will-change: transform;
+}
+.glow-tl {
+  width: 600px; height: 600px;
+  top: -100px; left: -100px;
+  background: rgba(0,120,200,0.15);
+  filter: blur(120px);
+  animation: drift-h 18s ease-in-out infinite alternate;
+}
+.glow-br {
+  width: 600px; height: 600px;
+  bottom: -100px; right: -100px;
+  background: rgba(120,60,220,0.12);
+  filter: blur(120px);
+  animation: drift-v 15s ease-in-out infinite alternate;
+}
+.glow-mc {
+  width: 500px; height: 500px;
+  top: 30%; right: 20%;
+  background: rgba(0,180,150,0.08);
+  filter: blur(100px);
+  animation: drift-d 20s ease-in-out infinite alternate;
+}
+
+/* ── Back link ── */
+.back-link-wrap { margin-bottom: 10px; }
+.back-link {
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-link:hover { color: rgba(255,255,255,0.75); }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+.header-title {
+  font-size: 1.35rem; font-weight: 700;
+  letter-spacing: -0.025em; color: var(--text);
+}
+.header-sub { color: var(--muted); font-size: 0.78rem; margin-top: 4px; }
+
+.countdown-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--muted);
+  font-size: 0.74rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: border-color 0.5s ease, color 0.5s ease;
+}
+.countdown-badge span {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  transition: color 0.5s ease;
+}
+.countdown-badge.urgent {
+  border-color: rgba(255,160,50,0.5);
+  color: #ffaa33;
+}
+.countdown-badge.urgent span { color: #ffaa33; }
+
+/* ── Cards ── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 10px; margin-bottom: 20px;
+}
+.card {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 16px 18px;
+  transition: border-color .15s, background .3s;
+}
+.card:hover { border-color: rgba(255,255,255,0.18); }
+.card-fail-alert {
+  border-color: rgba(255,80,80,0.35) !important;
+  background: linear-gradient(rgba(255,40,40,0.08), rgba(255,40,40,0.08)),
+              rgba(255,255,255,0.05) !important;
+}
+.card-label {
+  font-size: 0.67rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--muted); margin-bottom: 10px;
+}
+.card-value { font-size: 1.75rem; font-weight: 700; line-height: 1; letter-spacing: -.025em; }
+.card-rel   { color: var(--muted); font-size: 0.72rem; margin-top: 5px; }
+.c-blue   { color: #818cf8; }
+.c-green  { color: #4ade80; }
+.c-red    { color: #f87171; }
+.c-yellow { color: #facc15; }
+.c-text   { font-size: 0.88rem; line-height: 1.4; color: var(--text); }
+
+/* ── Panel ── */
+.panel {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 22px;
+  margin-bottom: 14px;
+}
+.panel-title {
+  font-size: 0.69rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .08em;
+  color: var(--muted); margin-bottom: 16px;
+}
+
+/* ── Vendor legend (chips) ── */
+.vendor-legend {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px;
+}
+.vchip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--s2);
+  cursor: pointer; user-select: none;
+  font-size: 0.74rem; font-weight: 500; color: var(--text);
+  transition: border-color .15s, opacity .15s;
+}
+.vchip.off { opacity: 0.28; }
+.vchip:hover { border-color: var(--border2); }
+.vdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.vcount { color: var(--dim); margin-left: 2px; }
+
+/* ── Chart ── */
+.chart-wrap { position: relative; height: 300px; }
+.panel-chart { background: rgba(0,0,0,0.25); }
+
+/* ── Filter bar ── */
+.filter-bar {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+}
+.filter-bar label { font-size: 0.76rem; color: var(--muted); }
+.filter-select {
+  background: var(--s2); border: 1px solid var(--border);
+  color: var(--text); padding: 5px 10px; border-radius: 7px;
+  font-size: 0.76rem; outline: none; cursor: pointer;
+  transition: border-color .15s;
+}
+.filter-select:focus { border-color: var(--blue); }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; }
+th {
+  text-align: left; padding: 7px 12px;
+  font-size: 0.67rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.1);
+  white-space: nowrap;
+}
+td {
+  padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 14px; vertical-align: middle;
+  transition: background .2s;
+}
+tbody tr:nth-child(even) td { background: rgba(255,255,255,.014); }
+tbody tr:hover td           { background: rgba(255,255,255,0.05) !important; }
+tbody tr:last-child td      { border-bottom: none; }
+tr.hidden-row { display: none; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 9px; border-radius: 20px;
+  font-size: 0.68rem; font-weight: 700;
+}
+.badge-ok      { background: rgba(74,222,128,.1);   color: #4ade80; }
+.badge-fail    { background: rgba(248,113,113,.1);  color: #f87171; }
+.badge-unknown { background: rgba(138,138,150,.12); color: #8a8a96; }
+
+.ng { color: #4ade80;  font-weight: 600; }
+.ny { color: #facc15;  font-weight: 600; }
+.nr { color: #f87171;  font-weight: 600; }
+
+/* ── Insight blocks ── */
+.insight { font-size: 0.94rem; line-height: 2.1; }
+.insight p { margin-bottom: 2px; }
+.hl   { color: #818cf8; font-weight: 700; }
+.hl-g { color: #4ade80; font-weight: 700; }
+.hl-r { color: #f87171; font-weight: 700; }
+.hl-y { color: #facc15; font-weight: 700; }
+
+.overflow { overflow-x: auto; }
+
+@media (max-width: 600px) {
+  header { flex-direction: column; gap: 8px; }
+  .chart-wrap { height: 220px; }
+  td, th      { padding: 5px 7px; }
+  .card-value { font-size: 1.4rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="glow glow-tl"></div>
+<div class="glow glow-br"></div>
+<div class="glow glow-mc"></div>
+
+<div class="back-link-wrap">
+  <a href="index.html" class="back-link">← 返回首页</a>
+</div>
+
+<header>
+  <div>
+    <div class="header-title">B端API模型状态监控台</div>
+    <div class="header-sub">共 <span id="hTotal">—</span> 个模型 · 每2小时自动检测 · 数据保留7天 · 点击厂商标签切换图表显示</div>
+  </div>
+  <div class="countdown-badge">距下次刷新 <span id="cdTimer">—:—:—</span></div>
+</header>
+
+<div class="cards">
+  <div class="card"><div class="card-label">模型总数</div><div class="card-value c-blue"   id="cTotal">—</div></div>
+  <div class="card"><div class="card-label">当前正常</div><div class="card-value c-green"  id="cOk">—</div></div>
+  <div class="card" id="cardFail"><div class="card-label">故障中</div><div class="card-value" id="cFail">—</div></div>
+  <div class="card"><div class="card-label">平均延迟</div><div class="card-value c-yellow"  id="cAvg">—</div></div>
+  <div class="card">
+    <div class="card-label">最近检测</div>
+    <div class="card-value c-text" id="cLast">—</div>
+    <div class="card-rel" id="cLastRel"></div>
+  </div>
+</div>
+
+<div class="panel panel-chart">
+  <div class="panel-title">延迟趋势</div>
+  <div class="vendor-legend" id="vendorLegend"></div>
+  <div class="chart-wrap"><canvas id="chart"></canvas></div>
+</div>
+
+<div class="panel">
+  <div class="panel-title">模型统计 — 按延迟均值从小到大排序</div>
+  <div class="filter-bar">
+    <label>筛选厂商</label>
+    <select class="filter-select" id="vendorFilter"><option value="">全部厂商</option></select>
+  </div>
+  <div class="overflow">
+    <table>
+      <thead><tr>
+        <th>模型</th><th>厂商</th><th>状态</th>
+        <th>均值(秒)</th><th>最小值(秒)</th><th>最大值(秒)</th>
+        <th>波动方差</th><th>24小时正常率</th>
+      </tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-title">⏱ 峰值分析</div>
+  <div class="insight" id="peakText">加载中…</div>
+</div>
+
+<div class="panel">
+  <div class="panel-title">📋 汇总报告</div>
+  <div class="insight" id="reportText">加载中…</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// ── B端 API 配置 ─────────────────────────────────────────────────────
+const API_BASE_URL = 'https://b.pandatoken.net/v1';
+const API_KEY      = 'sk-IvoVJKFxaEbOUVVRXJZGlemJZriTaHhpIezzZphb2BI7wkPx';
+
+// ── Vendor definitions ───────────────────────────────────────────────
+const VENDOR_DEFS = [
+  { name: 'OpenAI',   test: m => /^(GPT|gpt|mog)/i.test(m),                  h: 217, s: 82 },
+  { name: 'Claude',   test: m => m.startsWith('claude'),                       h: 265, s: 75 },
+  { name: 'Gemini',   test: m => m.startsWith('gemini'),                       h: 152, s: 70 },
+  { name: 'Kimi',     test: m => m.startsWith('kimi'),                         h: 195, s: 85 },
+  { name: 'MiMo',     test: m => m.startsWith('mimo'),                         h: 174, s: 75 },
+  { name: 'DeepSeek', test: m => m.startsWith('deepseek'),                     h: 24,  s: 85 },
+  { name: 'Qwen',     test: m => m.startsWith('qwen') || m.startsWith('qwq'), h: 42,  s: 90 },
+  { name: '智谱',      test: m => m.startsWith('glm'),                         h: 330, s: 75 },
+  { name: 'MiniMax',  test: m => m.startsWith('minimax'),                      h: 0,   s: 80 },
+  { name: '混元',      test: m => m.startsWith('hunyuan'),                     h: 244, s: 72 },
+  { name: '豆包',      test: m => m.startsWith('doubao'),                      h: 84,  s: 78 },
+  { name: 'xAI',      test: m => m.startsWith('grok'),                         h: 200, s: 60 },
+];
+
+function getVendor(model) {
+  return (VENDOR_DEFS.find(d => d.test(model)) || {}).name || 'Other';
+}
+function vendorBase(name) {
+  const v = VENDOR_DEFS.find(d => d.name === name);
+  return v ? `hsl(${v.h},${v.s}%,56%)` : '#888';
+}
+function modelColor(vendor, idx, total) {
+  const v = VENDOR_DEFS.find(d => d.name === vendor);
+  if (!v) return '#888';
+  const l = total <= 1 ? 55 : 38 + (idx / Math.max(total - 1, 1)) * 28;
+  return `hsl(${v.h},${v.s}%,${l.toFixed(0)}%)`;
+}
+function withAlpha(hslColor, alpha) {
+  return hslColor.replace('hsl(', 'hsla(').replace(')', `,${alpha})`);
+}
+
+// ── CSV loader ───────────────────────────────────────────────────────
+async function loadCSV() {
+  const r = await fetch('./data-b.csv?t=' + Date.now());
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  const lines = (await r.text()).trim().split('\n').filter(l => l.trim());
+  if (lines.length < 2) return [];
+  return lines.slice(1).map(line => {
+    const p = line.split(',');
+    return { timestamp: p[0], model: p[1], latency: parseFloat(p[2]), status: p[3] };
+  });
+}
+
+// ── Colour helpers ───────────────────────────────────────────────────
+const fmt = n => (n !== null && n >= 0) ? n.toFixed(2) : '—';
+
+function latCls(v) {
+  if (v < 0) return '';
+  return v < 3 ? 'ng' : v < 8 ? 'ny' : 'nr';
+}
+function varCls(v) {
+  if (v < 0) return '';
+  return v < 10 ? 'ng' : v < 30 ? 'ny' : 'nr';
+}
+function rateCls(r) { return r >= 90 ? 'ng' : r >= 70 ? 'ny' : 'nr'; }
+
+// ── Relative time ────────────────────────────────────────────────────
+function relativeTime(tsStr) {
+  if (!tsStr || tsStr === '—') return '';
+  const d = new Date(tsStr.replace(' ', 'T') + ':00+08:00');
+  if (isNaN(d.getTime())) return '';
+  const diffMin = Math.floor((Date.now() - d.getTime()) / 60000);
+  if (diffMin < 1)  return '刚刚';
+  if (diffMin < 60) return `${diffMin} 分钟前`;
+  const h = Math.floor(diffMin / 60);
+  if (h < 24)       return `${h} 小时前`;
+  return `${Math.floor(h / 24)} 天前`;
+}
+
+// ── Countdown ────────────────────────────────────────────────────────
+function getNextCronTime() {
+  const twoHours = 7200000;
+  const now = Date.now();
+  let next = Math.ceil(now / twoHours) * twoHours;
+  if (next === now) next += twoHours;
+  return next;
+}
+
+let nextCron = getNextCronTime();
+let cdInterval = null;
+
+function formatCountdown(ms) {
+  if (ms <= 0) return '00:00:00';
+  const s = Math.floor(ms / 1000);
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const ss = s % 60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
+}
+
+function startCountdown(onZero) {
+  clearInterval(cdInterval);
+  const timerEl  = document.getElementById('cdTimer');
+  const badgeEl  = timerEl.closest('.countdown-badge');
+  timerEl.textContent = formatCountdown(nextCron - Date.now());
+  cdInterval = setInterval(() => {
+    const remaining = nextCron - Date.now();
+    if (remaining <= 0) {
+      timerEl.textContent = '00:00:00';
+      badgeEl.classList.remove('urgent');
+      clearInterval(cdInterval);
+      nextCron = getNextCronTime();
+      onZero().then(() => startCountdown(onZero));
+    } else {
+      timerEl.textContent = formatCountdown(remaining);
+      badgeEl.classList.toggle('urgent', remaining <= 60000);
+    }
+  }, 1000);
+}
+
+// ── Chart hover state (module-level so re-runs don't stack listeners) ─
+let chartInst = null;
+let colorMap  = {};
+let lastTs    = '';
+let hoverState = null;
+
+function applyHoverState() {
+  if (!chartInst) return;
+  chartInst.data.datasets.forEach((ds, i) => {
+    let alpha = 1;
+    if (hoverState) {
+      if (hoverState.type === 'dataset') {
+        alpha = (i === hoverState.idx) ? 1 : 0.1;
+      } else if (hoverState.type === 'vendor') {
+        alpha = (getVendor(ds.label) === hoverState.name) ? 1 : 0.1;
+      }
+    }
+    const base = colorMap[ds.label];
+    ds.borderColor = alpha < 1 ? withAlpha(base, alpha) : base;
+    ds.borderWidth = (hoverState && hoverState.type === 'dataset' && i === hoverState.idx) ? 3 : 1.5;
+  });
+  chartInst.update('none');
+}
+
+function onCanvasMousemove(evt) {
+  if (!chartInst) return;
+  const els = chartInst.getElementsAtEventForMode(evt, 'nearest', { intersect: false }, true);
+  const next = els.length ? { type: 'dataset', idx: els[0].datasetIndex } : null;
+  if (JSON.stringify(next) !== JSON.stringify(hoverState)) {
+    hoverState = next;
+    applyHoverState();
+  }
+}
+function onCanvasMouseleave() {
+  hoverState = null;
+  applyHoverState();
+}
+
+// ── Main ─────────────────────────────────────────────────────────────
+async function main() {
+  let rows;
+  try { rows = await loadCSV(); }
+  catch (e) {
+    document.getElementById('reportText').textContent = '无法加载 data-b.csv：' + e.message;
+    return;
+  }
+  if (!rows.length) {
+    ['cTotal','cOk','cFail','cAvg','cLast','cLastRel','hTotal','peakText','reportText']
+      .forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '暂无数据'; });
+    return;
+  }
+
+  const models     = [...new Set(rows.map(r => r.model))];
+  const timestamps = [...new Set(rows.map(r => r.timestamp))].sort();
+  const latestTs   = timestamps[timestamps.length - 1];
+  const latestRows = rows.filter(r => r.timestamp === latestTs);
+  const okNow      = latestRows.filter(r => r.status === 'ok');
+  const failCount  = latestRows.filter(r => r.status === 'fail').length;
+  const avgNow     = okNow.length
+    ? okNow.reduce((sum, r) => sum + r.latency, 0) / okNow.length : -1;
+
+  lastTs = latestTs;
+
+  // Cards
+  document.getElementById('hTotal').textContent = models.length;
+  document.getElementById('cTotal').textContent = models.length;
+  document.getElementById('cOk').textContent    = okNow.length;
+
+  const failEl   = document.getElementById('cFail');
+  const cardFail = document.getElementById('cardFail');
+  failEl.textContent = failCount;
+  failEl.className   = 'card-value ' + (failCount > 0 ? 'c-red' : 'c-green');
+  cardFail.classList.toggle('card-fail-alert', failCount > 0);
+
+  document.getElementById('cAvg').textContent     = avgNow >= 0 ? avgNow.toFixed(1) + 's' : '—';
+  document.getElementById('cLast').textContent    = latestTs;
+  document.getElementById('cLastRel').textContent = relativeTime(latestTs);
+
+  // Group models → vendor
+  const vendorModels = {};
+  models.forEach(m => {
+    const v = getVendor(m);
+    (vendorModels[v] = vendorModels[v] || []).push(m);
+  });
+
+  colorMap = {};
+  Object.entries(vendorModels).forEach(([v, ms]) =>
+    ms.forEach((m, i) => { colorMap[m] = modelColor(v, i, ms.length); })
+  );
+
+  // Chart
+  const displayTs = timestamps.map(t => t.slice(5));
+  const datasets  = models.map(model => ({
+    label: model,
+    data: timestamps.map(ts => {
+      const row = rows.find(r => r.model === model && r.timestamp === ts);
+      return (row && row.status === 'ok') ? row.latency : null;
+    }),
+    borderColor: colorMap[model],
+    backgroundColor: 'transparent',
+    borderWidth: 1.5, tension: 0.3, pointRadius: 2,
+    spanGaps: false, hidden: false,
+  }));
+
+  if (chartInst) chartInst.destroy();
+
+  chartInst = new Chart(document.getElementById('chart'), {
+    type: 'line',
+    data: { labels: displayTs, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#18181b', borderColor: '#26262c', borderWidth: 1,
+          titleColor: '#e6e6ea', bodyColor: '#8a8a96', padding: 10,
+          callbacks: {
+            title: items => items.length ? chartInst.data.datasets[items[0].datasetIndex].label : '',
+            label: item  => `延迟: ${item.parsed.y !== null ? item.parsed.y.toFixed(2) + 's' : '无数据'}`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: { color: '#52525e', font: { size: 10 }, maxRotation: 45, autoSkip: true, maxTicksLimit: 12 },
+          grid: { color: '#1a1a1e' },
+        },
+        y: {
+          min: 0,
+          ticks: { color: '#52525e', font: { size: 10 } },
+          grid: { color: '#1a1a1e' },
+          title: { display: true, text: '延迟 (秒)', color: '#52525e', font: { size: 10 } },
+        },
+      },
+    },
+  });
+
+  // Canvas hover highlight — use named module-level handlers to avoid stacking
+  const canvas = document.getElementById('chart');
+  canvas.removeEventListener('mousemove', onCanvasMousemove);
+  canvas.removeEventListener('mouseleave', onCanvasMouseleave);
+  canvas.addEventListener('mousemove', onCanvasMousemove);
+  canvas.addEventListener('mouseleave', onCanvasMouseleave);
+
+  // Vendor legend chips
+  const legendEl = document.getElementById('vendorLegend');
+  legendEl.innerHTML = '';
+  const vendorOn = {};
+  Object.keys(vendorModels).forEach(vendor => {
+    vendorOn[vendor] = true;
+    const chip = document.createElement('div');
+    chip.className = 'vchip';
+    chip.innerHTML =
+      `<span class="vdot" style="background:${vendorBase(vendor)}"></span>` +
+      `${vendor}<span class="vcount">${vendorModels[vendor].length}</span>`;
+
+    chip.addEventListener('click', () => {
+      vendorOn[vendor] = !vendorOn[vendor];
+      chip.classList.toggle('off', !vendorOn[vendor]);
+      models.forEach((m, i) => {
+        if (getVendor(m) === vendor)
+          chartInst.getDatasetMeta(i).hidden = !vendorOn[vendor];
+      });
+      chartInst.update();
+    });
+    chip.addEventListener('mouseenter', () => {
+      hoverState = { type: 'vendor', name: vendor };
+      applyHoverState();
+    });
+    chip.addEventListener('mouseleave', () => {
+      hoverState = null;
+      applyHoverState();
+    });
+    legendEl.appendChild(chip);
+  });
+
+  // Vendor filter dropdown
+  const filterEl = document.getElementById('vendorFilter');
+  filterEl.innerHTML = '<option value="">全部厂商</option>';
+  Object.keys(vendorModels).forEach(v => {
+    const o = document.createElement('option');
+    o.value = v; o.textContent = v;
+    filterEl.appendChild(o);
+  });
+  filterEl.addEventListener('change', () => {
+    const sel = filterEl.value;
+    document.querySelectorAll('#tableBody tr').forEach(tr =>
+      tr.classList.toggle('hidden-row', !!sel && tr.dataset.vendor !== sel)
+    );
+  });
+
+  // Per-model statistics
+  const cutoff24 = new Date(Date.now() - 86400000);
+  const stats = models.map(model => {
+    const mRows = rows.filter(r => r.model === model);
+    const lats  = mRows.filter(r => r.status === 'ok').map(r => r.latency);
+    const avg   = lats.length ? lats.reduce((s, v) => s + v, 0) / lats.length : -1;
+    const min   = lats.length ? Math.min(...lats) : -1;
+    const max   = lats.length ? Math.max(...lats) : -1;
+    const vari  = min >= 0 && max >= 0 ? max - min : -1;
+    const r24   = mRows.filter(r => new Date(r.timestamp) >= cutoff24);
+    const rate  = r24.length ? Math.round(r24.filter(r => r.status === 'ok').length / r24.length * 100) : 0;
+    const cur   = mRows.filter(r => r.timestamp === latestTs)[0];
+    return { model, vendor: getVendor(model), status: cur ? cur.status : 'unknown', avg, min, max, vari, rate };
+  }).sort((a, b) => {
+    if (a.avg < 0 && b.avg < 0) return 0;
+    if (a.avg < 0) return 1;
+    if (b.avg < 0) return -1;
+    return a.avg - b.avg;
+  });
+
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+  stats.forEach(s => {
+    const tr = document.createElement('tr');
+    tr.dataset.vendor = s.vendor;
+    if (s.vendor === 'xAI') tr.style.background = 'rgba(186,230,255,0.06)';
+    const badge = s.status === 'ok'
+      ? '<span class="badge badge-ok">● 正常</span>'
+      : s.status === 'fail'
+        ? '<span class="badge badge-fail">● 故障</span>'
+        : '<span class="badge badge-unknown">● 未知</span>';
+    tr.innerHTML =
+      `<td style="font-size:15px;font-weight:500;color:var(--text)">${s.model}</td>` +
+      `<td style="font-size:14px"><span style="color:${vendorBase(s.vendor)};font-weight:600">${s.vendor}</span></td>` +
+      `<td style="font-size:14px">${badge}</td>` +
+      `<td class="${latCls(s.avg)}" style="font-size:14px">${fmt(s.avg)}</td>` +
+      `<td class="${latCls(s.min)}" style="font-size:14px">${fmt(s.min)}</td>` +
+      `<td class="${latCls(s.max)}" style="font-size:14px">${fmt(s.max)}</td>` +
+      `<td class="${varCls(s.vari)}" style="font-size:14px">${s.vari >= 0 ? s.vari.toFixed(2) : '—'}</td>` +
+      `<td class="${rateCls(s.rate)}" style="font-size:14px">${s.rate}%</td>`;
+    tbody.appendChild(tr);
+  });
+
+  // Peak analysis
+  const byHour = {};
+  rows.filter(r => r.status === 'ok').forEach(r => {
+    const h = r.timestamp.slice(11, 13);
+    (byHour[h] = byHour[h] || []).push(r.latency);
+  });
+  const hourArr = Object.entries(byHour).map(([h, lats]) => ({
+    h, avg: lats.reduce((s, v) => s + v, 0) / lats.length, count: lats.length,
+  }));
+  const peakEl = document.getElementById('peakText');
+  if (hourArr.length >= 2) {
+    const next  = h => String((parseInt(h) + 1) % 24).padStart(2, '0');
+    const peak  = hourArr.reduce((a, b) => a.avg > b.avg ? a : b);
+    const low   = hourArr.reduce((a, b) => a.avg < b.avg ? a : b);
+    peakEl.innerHTML =
+      `<p>🔴 延迟最高时段：<span class="hl-r">${peak.h}:00–${next(peak.h)}:00</span>，` +
+      `平均响应 <span class="hl-r">${peak.avg.toFixed(2)}s</span>（共 ${peak.count} 条记录）</p>` +
+      `<p>🟢 延迟最低时段：<span class="hl-g">${low.h}:00–${next(low.h)}:00</span>，` +
+      `平均响应 <span class="hl-g">${low.avg.toFixed(2)}s</span>（共 ${low.count} 条记录）</p>` +
+      `<p style="color:var(--muted);font-size:.78rem;margin-top:6px">🕐 基于全部历史记录，时间为北京时间</p>`;
+  } else {
+    peakEl.textContent = '⏳ 数据不足，无法分析时段规律（需覆盖多个小时）。';
+  }
+
+  // Summary report
+  const rows24  = rows.filter(r => new Date(r.timestamp) >= cutoff24);
+  const runs24  = new Set(rows24.map(r => r.timestamp)).size;
+  const rate24  = rows24.length
+    ? Math.round(rows24.filter(r => r.status === 'ok').length / rows24.length * 100) : 0;
+  const stable       = stats.filter(s => s.vari >= 0);
+  const mostStable   = stable.length ? stable[stable.length - 1] : null;
+  const mostUnstable = stable.length ? stable[0] : null;
+  const failing      = stats.filter(s => s.status === 'fail').map(s => s.model);
+
+  const rateHl = rate24 >= 90 ? 'hl-g' : rate24 >= 70 ? 'hl-y' : 'hl-r';
+  let html = `<p>📊 过去24小时共测试 <span class="hl">${runs24}</span> 次，平均成功率 <span class="${rateHl}">${rate24}%</span>。</p>`;
+  if (mostStable) {
+    html += `<p>🏆 延迟最稳定：<span class="hl-g">${mostStable.model}</span>` +
+      `（平均 ${fmt(mostStable.avg)}s，波动仅 ${mostStable.vari >= 0 ? mostStable.vari.toFixed(1) : '—'}s）</p>`;
+  }
+  if (mostUnstable && mostUnstable.model !== mostStable?.model) {
+    html += `<p>⚡ 延迟最不稳定：<span class="hl-r">${mostUnstable.model}</span>` +
+      `（波动 ${mostUnstable.vari.toFixed(1)}s，建议关注）</p>`;
+  }
+  if (failing.length) {
+    const preview = failing.slice(0, 5).join('、') + (failing.length > 5 ? `…等 ${failing.length} 个` : '');
+    html += `<p>🚨 当前不可用：<span class="hl-r">${preview}</span></p>`;
+  } else {
+    html += `<p>✅ 当前所有 <span class="hl-g">${models.length}</span> 个模型均正常可用。</p>`;
+  }
+  document.getElementById('reportText').innerHTML = html;
+}
+
+// ── Relative time auto-update ─────────────────────────────────────────
+setInterval(() => {
+  const el = document.getElementById('cLastRel');
+  if (el && lastTs) el.textContent = relativeTime(lastTs);
+}, 60000);
+
+// ── Boot ─────────────────────────────────────────────────────────────
+main();
+startCountdown(main);
+</script>
+</body>
+</html>
