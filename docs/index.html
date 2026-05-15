@@ -39,29 +39,45 @@ body {
 }
 
 /* ── Background glow orbs ── */
+@keyframes drift-h {
+  from { transform: translateX(0);    }
+  to   { transform: translateX(45px); }
+}
+@keyframes drift-v {
+  from { transform: translateY(0);     }
+  to   { transform: translateY(-55px); }
+}
+@keyframes drift-d {
+  from { transform: translate(0, 0);         }
+  to   { transform: translate(32px, -32px);  }
+}
 .glow {
   position: fixed;
   z-index: 0;
   pointer-events: none;
   border-radius: 50%;
+  will-change: transform;
 }
 .glow-tl {
   width: 600px; height: 600px;
   top: -100px; left: -100px;
   background: rgba(0,120,200,0.15);
   filter: blur(120px);
+  animation: drift-h 18s ease-in-out infinite alternate;
 }
 .glow-br {
   width: 600px; height: 600px;
   bottom: -100px; right: -100px;
   background: rgba(120,60,220,0.12);
   filter: blur(120px);
+  animation: drift-v 15s ease-in-out infinite alternate;
 }
 .glow-mc {
   width: 500px; height: 500px;
   top: 30%; right: 20%;
   background: rgba(0,180,150,0.08);
   filter: blur(100px);
+  animation: drift-d 20s ease-in-out infinite alternate;
 }
 header {
   display: flex;
@@ -90,12 +106,19 @@ header {
   white-space: nowrap;
   flex-shrink: 0;
   margin-top: 2px;
+  transition: border-color 0.5s ease, color 0.5s ease;
 }
 .countdown-badge span {
   color: var(--text);
   font-variant-numeric: tabular-nums;
   font-weight: 600;
+  transition: color 0.5s ease;
 }
+.countdown-badge.urgent {
+  border-color: rgba(255,160,50,0.5);
+  color: #ffaa33;
+}
+.countdown-badge.urgent span { color: #ffaa33; }
 
 /* ── Cards ── */
 .cards {
@@ -110,9 +133,14 @@ header {
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 12px;
   padding: 16px 18px;
-  transition: border-color .15s;
+  transition: border-color .15s, background .3s;
 }
 .card:hover { border-color: rgba(255,255,255,0.18); }
+.card-fail-alert {
+  border-color: rgba(255,80,80,0.35) !important;
+  background: linear-gradient(rgba(255,40,40,0.08), rgba(255,40,40,0.08)),
+              rgba(255,255,255,0.05) !important;
+}
 .card-label {
   font-size: 0.67rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: .08em; color: var(--muted); margin-bottom: 10px;
@@ -161,6 +189,7 @@ header {
 
 /* ── Chart ── */
 .chart-wrap { position: relative; height: 300px; }
+.panel-chart { background: rgba(0,0,0,0.25); }
 
 /* ── Filter bar ── */
 .filter-bar {
@@ -181,11 +210,11 @@ th {
   text-align: left; padding: 7px 12px;
   font-size: 0.67rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: .07em;
-  color: var(--muted); border-bottom: 1px solid var(--border);
+  color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.1);
   white-space: nowrap;
 }
 td {
-  padding: 10px 12px; border-bottom: 1px solid rgba(38,38,44,.7);
+  padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.06);
   font-size: 14px; vertical-align: middle;
   transition: background .2s;
 }
@@ -242,7 +271,7 @@ tr.hidden-row { display: none; }
 <div class="cards">
   <div class="card"><div class="card-label">模型总数</div><div class="card-value c-blue"   id="cTotal">—</div></div>
   <div class="card"><div class="card-label">当前正常</div><div class="card-value c-green"  id="cOk">—</div></div>
-  <div class="card"><div class="card-label">故障中</div>  <div class="card-value"          id="cFail">—</div></div>
+  <div class="card" id="cardFail"><div class="card-label">故障中</div><div class="card-value" id="cFail">—</div></div>
   <div class="card"><div class="card-label">平均延迟</div><div class="card-value c-yellow"  id="cAvg">—</div></div>
   <div class="card">
     <div class="card-label">最近检测</div>
@@ -251,7 +280,7 @@ tr.hidden-row { display: none; }
   </div>
 </div>
 
-<div class="panel">
+<div class="panel panel-chart">
   <div class="panel-title">延迟趋势</div>
   <div class="vendor-legend" id="vendorLegend"></div>
   <div class="chart-wrap"><canvas id="chart"></canvas></div>
@@ -381,17 +410,20 @@ function formatCountdown(ms) {
 
 function startCountdown(onZero) {
   clearInterval(cdInterval);
-  const timerEl = document.getElementById('cdTimer');
+  const timerEl  = document.getElementById('cdTimer');
+  const badgeEl  = timerEl.closest('.countdown-badge');
   timerEl.textContent = formatCountdown(nextCron - Date.now());
   cdInterval = setInterval(() => {
     const remaining = nextCron - Date.now();
     if (remaining <= 0) {
       timerEl.textContent = '00:00:00';
+      badgeEl.classList.remove('urgent');
       clearInterval(cdInterval);
       nextCron = getNextCronTime();
       onZero().then(() => startCountdown(onZero));
     } else {
       timerEl.textContent = formatCountdown(remaining);
+      badgeEl.classList.toggle('urgent', remaining <= 60000);
     }
   }, 1000);
 }
@@ -464,9 +496,11 @@ async function main() {
   document.getElementById('cTotal').textContent = models.length;
   document.getElementById('cOk').textContent    = okNow.length;
 
-  const failEl = document.getElementById('cFail');
+  const failEl   = document.getElementById('cFail');
+  const cardFail = document.getElementById('cardFail');
   failEl.textContent = failCount;
   failEl.className   = 'card-value ' + (failCount > 0 ? 'c-red' : 'c-green');
+  cardFail.classList.toggle('card-fail-alert', failCount > 0);
 
   document.getElementById('cAvg').textContent     = avgNow >= 0 ? avgNow.toFixed(1) + 's' : '—';
   document.getElementById('cLast').textContent    = latestTs;
