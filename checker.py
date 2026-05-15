@@ -9,46 +9,26 @@ import requests
 
 API_BASE_URL = os.environ["API_BASE_URL"]
 API_KEY = os.environ["API_KEY"]
-DINGTALK_WEBHOOK = os.environ["DINGTALK_WEBHOOK"]
-DINGTALK_SECRET = os.environ["DINGTALK_SECRET"]
+DINGTALK_WEBHOOK = os.environ.get("DINGTALK_WEBHOOK", "")
+DINGTALK_SECRET = os.environ.get("DINGTALK_SECRET", "")
 
 MODELS = [
     # OpenAI
-    "GPT-4.1",
-    "GPT-4o",
-    "gpt-4o-2024-11-20",
-    "gpt-4o-2024-08-06",
-    "gpt-4o-mini-2024-07-18",
-    "gpt-5",
-    "gpt-5-codex",
     "gpt-5.1",
     "gpt-5.1-codex",
     "gpt-5.2",
     "gpt-5.2-codex",
     "gpt-5.3-codex",
     "gpt-5.4",
-    "gpt-oss-120b",
-    "mog-5",
+    "gpt-5.5",
+    "gpt-5.5-pool",
     # Claude
-    "claude-3.7-sonnet-20250219",
-    "claude-sonnet-4-20250514",
     "claude-sonnet-4-5-20250929",
     "claude-sonnet-4-6",
     "claude-haiku-4-5-20251001",
-    "claude-opus-4-20250514",
-    "claude-opus-4-1-20250805",
     "claude-opus-4-5-20251101",
     "claude-opus-4-6",
-    "claude-opus-4-7-stable",
-    "claude-sonnet-4-5-20250929-stable",
-    "claude-sonnet-4-6-stable",
-    "claude-haiku-4-5-20251001-stable",
-    "claude-opus-4-6-stable",
-    "claude-opus-4-5-20251101-stable",
     # Gemini
-    "gemini-2.5-flash-lite",
-    "gemini-2.5-flash",
-    "gemini-2.5-pro",
     "gemini-3-flash-preview",
     "gemini-3.1-flash-lite-preview",
     "gemini-3.1-pro-preview",
@@ -60,31 +40,15 @@ MODELS = [
     "mimo-v2-flash",
     "mimo-v2-pro",
     # DeepSeek
-    "deepseek-v3",
-    "deepseek-v3-2-251201",
-    "deepseek-reasoner",
-    "deepseek-v3.1",
-    "deepseek-v3.2-speciale",
     "deepseek-v4-flash",
     "deepseek-v4-pro",
     # Qwen
-    "qwen-flash",
-    "qwen-turbo",
-    "qwen-long",
-    "qwen-plus",
     "qwen3.5-flash",
     "qwen3.5-plus",
-    "qwen3.5-35b-a3b",
     "qwen3.5-397b-a17b",
-    "qwen3-next",
-    "qwen3-32b",
-    "qwen3-max",
-    "qwen3-235b",
     "qwen3-coder",
-    "qwen3-30b-a3b-instruct-2507",
+    "qwen3-vl-plus",
     # 智谱
-    "glm-4.6",
-    "glm-4.7",
     "glm-5",
     "glm-5.1",
     # MiniMax
@@ -96,6 +60,9 @@ MODELS = [
     "hunyuan-t1-vision-20250916",
     # 豆包
     "doubao-seed-2-0-lite",
+    "doubao-seed-2.0-code",
+    "doubao-seed-2.0-pro",
+
 ]
 
 
@@ -278,8 +245,11 @@ def main():
     if any_fail:
         lines.append("\n> ⚠️ 部分模型不可用，请检查！")
 
-    send_dingtalk("\n".join(lines), at_all=any_fail)
-    print("Report sent to DingTalk.")
+    if DINGTALK_WEBHOOK and DINGTALK_SECRET:
+        send_dingtalk("\n".join(lines), at_all=any_fail)
+        print("Report sent to DingTalk.")
+    else:
+        print("DingTalk 未配置，跳过通知。")
 
     csv_path = "docs/data.csv"
     os.makedirs("docs", exist_ok=True)
