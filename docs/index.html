@@ -214,7 +214,7 @@ tr.hidden-row { display: none; }
 </div>
 
 <div class="panel">
-  <div class="panel-title">模型统计 — 按延迟波动排序</div>
+  <div class="panel-title">模型统计 — 按延迟波动从小到大排序</div>
   <div class="filter-bar">
     <label>筛选厂商</label>
     <select class="filter-select" id="vendorFilter"><option value="">全部厂商</option></select>
@@ -256,6 +256,7 @@ const VENDOR_DEFS = [
   { name: 'MiniMax',  test: m => m.startsWith('minimax'),                      h: 0,   s: 80 },
   { name: '混元',      test: m => m.startsWith('hunyuan'),                     h: 244, s: 72 },
   { name: '豆包',      test: m => m.startsWith('doubao'),                      h: 84,  s: 78 },
+  { name: 'xAI',      test: m => m.startsWith('grok'),                         h: 200, s: 60 },
 ];
 
 function getVendor(model) {
@@ -554,13 +555,14 @@ async function main() {
     const rate  = r24.length ? Math.round(r24.filter(r => r.status === 'ok').length / r24.length * 100) : 0;
     const cur   = mRows.filter(r => r.timestamp === latestTs)[0];
     return { model, vendor: getVendor(model), status: cur ? cur.status : 'unknown', avg, min, max, vari, rate };
-  }).sort((a, b) => b.vari - a.vari);
+  }).sort((a, b) => a.vari - b.vari);
 
   const tbody = document.getElementById('tableBody');
   tbody.innerHTML = '';
   stats.forEach(s => {
     const tr = document.createElement('tr');
     tr.dataset.vendor = s.vendor;
+    if (s.vendor === 'xAI') tr.style.background = 'rgba(186,230,255,0.06)';
     const badge = s.status === 'ok'
       ? '<span class="badge badge-ok">● 正常</span>'
       : s.status === 'fail'
