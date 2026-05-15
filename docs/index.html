@@ -287,7 +287,7 @@ tr.hidden-row { display: none; }
 </div>
 
 <div class="panel">
-  <div class="panel-title">模型统计 — 按延迟波动从小到大排序</div>
+  <div class="panel-title">模型统计 — 按延迟均值从小到大排序</div>
   <div class="filter-bar">
     <label>筛选厂商</label>
     <select class="filter-select" id="vendorFilter"><option value="">全部厂商</option></select>
@@ -634,10 +634,10 @@ async function main() {
     const cur   = mRows.filter(r => r.timestamp === latestTs)[0];
     return { model, vendor: getVendor(model), status: cur ? cur.status : 'unknown', avg, min, max, vari, rate };
   }).sort((a, b) => {
-    if (a.vari < 0 && b.vari < 0) return 0;
-    if (a.vari < 0) return 1;
-    if (b.vari < 0) return -1;
-    return a.vari - b.vari;
+    if (a.avg < 0 && b.avg < 0) return 0;
+    if (a.avg < 0) return 1;
+    if (b.avg < 0) return -1;
+    return a.avg - b.avg;
   });
 
   const tbody = document.getElementById('tableBody');
