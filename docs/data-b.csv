@@ -1154,3 +1154,14 @@ timestamp,model,latency,status,error
 2026-05-29 21:43,gemini-3.1-flash-image-preview,2.362,ok,
 2026-05-29 21:43,gemini-3.1-flash-lite-preview,2.191,ok,
 2026-05-29 21:43,gemini-3.1-pro-preview,3.382,ok,
+2026-05-30 01:48,gpt-5.4,3.002,ok,
+2026-05-30 01:48,gpt-5.4-mini,2.053,ok,
+2026-05-30 01:48,gpt-5.4-nano,2.084,ok,
+2026-05-30 01:48,gpt-5.4-pro,-1,fail,"HTTP 400 - 请求格式错误; body={""error"":{""message"":""[trace_id: a12615b1-93c1-485a-be00-bdbe8cc9809b] Invalid param: The requested operation is unsupported."",""type"":""invalid_request_error"",""param"":""a12615b1-9"
+2026-05-30 01:48,gpt-5.5,2.403,ok,
+2026-05-30 01:48,claude-opus-4-6,-1,fail,Request timeout (>60s)
+2026-05-30 01:48,claude-opus-4-7,2.086,ok,
+2026-05-30 01:48,claude-sonnet-4-6,3.8,ok,
+2026-05-30 01:48,gemini-3.1-flash-image-preview,2.362,ok,
+2026-05-30 01:48,gemini-3.1-flash-lite-preview,1.607,ok,
+2026-05-30 01:48,gemini-3.1-pro-preview,2.855,ok,
