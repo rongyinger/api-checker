@@ -2891,3 +2891,47 @@ timestamp,model,latency,status,error
 2026-05-31 21:53,deepseek-v4-flash,1.886,ok,
 2026-05-31 21:53,doubao-seed-2.0-pro,3.152,ok,
 2026-05-31 21:53,doubao-seed-2.0-code,3.102,ok,
+2026-05-31 23:23,mimo-v2-pro,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-05-31 23:23,gemini-3.1-flash-lite-preview,2.406,ok,
+2026-05-31 23:23,minimax-m2.5,2.18,ok,
+2026-05-31 23:23,minimax-m2.7,2.337,ok,
+2026-05-31 23:23,gpt-5.5,4.45,ok,
+2026-05-31 23:23,doubao-seed-2.0-code,-1,fail,"HTTP 500 - 平台服务器内部错误，上游服务异常; body={""error"":{""message"":""请求参数不能为空"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-05-31 23:23,gpt-5.2,3.391,ok,
+2026-05-31 23:23,qwen3-coder,1.545,ok,
+2026-05-31 23:23,qwen3.5-flash,2.028,ok,
+2026-05-31 23:23,claude-opus-4-7,15.361,ok,
+2026-05-31 23:23,doubao-seed-2-0-lite,2.289,ok,
+2026-05-31 23:23,mimo-v2-flash,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-05-31 23:23,gemini-2.5-flash,12.084,ok,
+2026-05-31 23:23,gpt-5.2-codex,-1,fail,"HTTP 503 - 服务暂时不可用，上游服务过载或维护中; body={""error"":{""message"":""{\""error\"":{\""code\"":\""model_not_found\"",\""message\"":\""No available channel for model gpt-5.2-codex under group default (distributor) (request "
+2026-05-31 23:23,gemini-3.1-pro-preview,4.604,ok,
+2026-05-31 23:23,claude-opus-4-5-20251101,35.589,ok,
+2026-05-31 23:23,doubao-seed-2.0-pro,2.697,ok,
+2026-05-31 23:23,qwen3.5-397b-a17b,4.732,ok,
+2026-05-31 23:23,hunyuan-vision-1.5-instruct,2.086,ok,
+2026-05-31 23:23,hunyuan-t1-vision-20250916,2.066,ok,
+2026-05-31 23:23,qwen3.5-plus,4.59,ok,
+2026-05-31 23:23,kimi-k2-thinking,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-05-31 23:23,glm-5.1,4.219,ok,
+2026-05-31 23:23,qwen3-vl-plus,1.975,ok,
+2026-05-31 23:23,deepseek-v4-flash,1.957,ok,
+2026-05-31 23:23,minimax-m2.5-highspeed,6.73,ok,
+2026-05-31 23:23,claude-sonnet-4-5-20250929,5.539,ok,
+2026-05-31 23:23,gpt-5.1-codex,3.355,ok,
+2026-05-31 23:23,gemini-2.5-pro,3.231,ok,
+2026-05-31 23:23,gpt-5.5-pool,3.162,ok,
+2026-05-31 23:23,gpt-5.4,2.4,ok,
+2026-05-31 23:23,grok-4-1-fast-reasoning,3.442,ok,
+2026-05-31 23:23,kimi-k2,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-05-31 23:23,claude-haiku-4-5-20251001,58.871,ok,
+2026-05-31 23:23,claude-opus-4-8,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-05-31 23:23,claude-sonnet-4-6,-1,fail,Request timeout (>60s) - model too slow or service unavailable
+2026-05-31 23:23,gpt-5.3-codex,2.459,ok,
+2026-05-31 23:23,grok-4-1-fast-non-reasoning,2.067,ok,
+2026-05-31 23:23,grok-code-fast-1,5.069,ok,
+2026-05-31 23:23,glm-5,4.446,ok,
+2026-05-31 23:23,deepseek-v4-pro,2.559,ok,
+2026-05-31 23:23,kimi-k2-5-260127,1.882,ok,
+2026-05-31 23:23,gpt-5.1,2.194,ok,
+2026-05-31 23:23,claude-opus-4-6,28.657,ok,
