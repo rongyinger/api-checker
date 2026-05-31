@@ -2559,3 +2559,47 @@ timestamp,model,latency,status,error
 2026-06-01 01:15,mimo-v2-flash,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
 2026-06-01 01:15,gpt-5.1-codex,3.483,ok,
 2026-06-01 01:15,grok-4-1-fast-reasoning,3.152,ok,
+2026-06-01 03:25,kimi-k2,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-06-01 03:25,qwen3-vl-plus,1.479,ok,
+2026-06-01 03:25,grok-4-1-fast-reasoning,3.66,ok,
+2026-06-01 03:25,kimi-k2-5-260127,1.538,ok,
+2026-06-01 03:25,claude-haiku-4-5-20251001,-1,fail,Request timeout (>60s) - model too slow or service unavailable
+2026-06-01 03:25,claude-opus-4-7,3.072,ok,
+2026-06-01 03:25,hunyuan-t1-vision-20250916,1.923,ok,
+2026-06-01 03:25,gpt-5.1-codex,3.22,ok,
+2026-06-01 03:25,grok-4-1-fast-non-reasoning,2.765,ok,
+2026-06-01 03:25,grok-code-fast-1,5.124,ok,
+2026-06-01 03:25,deepseek-v4-flash,1.648,ok,
+2026-06-01 03:25,mimo-v2-flash,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-06-01 03:25,gpt-5.2-codex,-1,fail,"HTTP 503 - 服务暂时不可用，上游服务过载或维护中; body={""error"":{""message"":""{\""error\"":{\""code\"":\""model_not_found\"",\""message\"":\""No available channel for model gpt-5.2-codex under group default (distributor) (request "
+2026-06-01 03:25,glm-5,2.773,ok,
+2026-06-01 03:25,claude-opus-4-6,4.853,ok,
+2026-06-01 03:25,claude-opus-4-8,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-06-01 03:25,doubao-seed-2-0-lite,2.488,ok,
+2026-06-01 03:25,gpt-5.2,3.051,ok,
+2026-06-01 03:25,deepseek-v4-pro,2.031,ok,
+2026-06-01 03:25,doubao-seed-2.0-pro,2.5,ok,
+2026-06-01 03:25,mimo-v2-pro,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-06-01 03:25,gpt-5.5-pool,2.494,ok,
+2026-06-01 03:25,gemini-3.1-pro-preview,3.676,ok,
+2026-06-01 03:25,hunyuan-vision-1.5-instruct,2.185,ok,
+2026-06-01 03:25,claude-sonnet-4-5-20250929,-1,fail,Request timeout (>60s) - model too slow or service unavailable
+2026-06-01 03:25,doubao-seed-2.0-code,-1,fail,"HTTP 500 - 平台服务器内部错误，上游服务异常; body={""error"":{""message"":""请求参数不能为空"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-06-01 03:25,qwen3.5-flash,2.511,ok,
+2026-06-01 03:25,minimax-m2.5,1.742,ok,
+2026-06-01 03:25,gpt-5.3-codex,2.367,ok,
+2026-06-01 03:25,minimax-m2.5-highspeed,6.801,ok,
+2026-06-01 03:25,qwen3.5-397b-a17b,4.476,ok,
+2026-06-01 03:25,glm-5.1,2.613,ok,
+2026-06-01 03:25,gemini-3.1-flash-lite-preview,2.046,ok,
+2026-06-01 03:25,gemini-2.5-flash,11.857,ok,
+2026-06-01 03:25,gemini-2.5-pro,14.624,ok,
+2026-06-01 03:25,qwen3-coder,1.364,ok,
+2026-06-01 03:25,kimi-k2-thinking,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-06-01 03:25,gpt-5.5,2.504,ok,
+2026-06-01 03:25,minimax-m2.7,2.465,ok,
+2026-06-01 03:25,gpt-5.1,2.331,ok,
+2026-06-01 03:25,gpt-5.4,2.362,ok,
+2026-06-01 03:25,claude-sonnet-4-6,2.625,ok,
+2026-06-01 03:25,claude-opus-4-5-20251101,60.244,ok,
+2026-06-01 03:25,qwen3.5-plus,8.266,ok,
