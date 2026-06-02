@@ -2327,3 +2327,46 @@ timestamp,model,latency,status,error
 2026-06-03 00:42,qwen3.5-flash,2.441,ok,
 2026-06-03 00:42,gemini-3.1-pro-preview,4.297,ok,
 2026-06-03 00:42,claude-opus-4-8,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-06-03 04:55,hunyuan-vision-1.5-instruct,2.525,ok,
+2026-06-03 04:55,qwen3-coder,1.851,ok,
+2026-06-03 04:55,gpt-5.5-pool,3.311,ok,
+2026-06-03 04:55,claude-haiku-4-5-20251001,2.844,ok,
+2026-06-03 04:55,mimo-v2-pro,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-06-03 04:55,doubao-seed-2-0-lite,2.501,ok,
+2026-06-03 04:55,gpt-5.3-codex,5.711,ok,
+2026-06-03 04:55,gpt-5.4,2.649,ok,
+2026-06-03 04:55,grok-code-fast-1,6.648,ok,
+2026-06-03 04:55,gemini-2.5-flash,7.298,ok,
+2026-06-03 04:55,claude-sonnet-4-5-20250929,-1,fail,"HTTP 503 - 服务暂时不可用，上游服务过载或维护中; body={""error"":{""message"":""No available channel for model claude-sonnet-4-5-20250929 under group default (distributor) (request id: 202606022053358341879818268d9d6UuDnN1i"
+2026-06-03 04:55,doubao-seed-2.0-pro,2.665,ok,
+2026-06-03 04:55,grok-4-1-fast-non-reasoning,5.276,ok,
+2026-06-03 04:55,qwen3-vl-plus,1.693,ok,
+2026-06-03 04:55,gpt-5.2,2.738,ok,
+2026-06-03 04:55,gpt-5.2-codex,-1,fail,"HTTP 503 - 服务暂时不可用，上游服务过载或维护中; body={""error"":{""message"":""{\""error\"":{\""code\"":\""model_not_found\"",\""message\"":\""No available channel for model gpt-5.2-codex under group default (distributor) (request "
+2026-06-03 04:55,kimi-k2-5-260127,1.92,ok,
+2026-06-03 04:55,deepseek-v4-flash,2.015,ok,
+2026-06-03 04:55,gpt-5.5,2.956,ok,
+2026-06-03 04:55,claude-opus-4-7,5.132,ok,
+2026-06-03 04:55,grok-4-1-fast-reasoning,3.183,ok,
+2026-06-03 04:55,qwen3.5-plus,5.585,ok,
+2026-06-03 04:55,gemini-2.5-pro,3.278,ok,
+2026-06-03 04:55,claude-sonnet-4-6,5.032,ok,
+2026-06-03 04:55,claude-opus-4-5-20251101,5.395,ok,
+2026-06-03 04:55,mimo-v2-flash,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-06-03 04:55,glm-5,7.086,ok,
+2026-06-03 04:55,gemini-3.1-pro-preview,4.231,ok,
+2026-06-03 04:55,gemini-3.1-flash-lite-preview,2.093,ok,
+2026-06-03 04:55,glm-5.1,4.196,ok,
+2026-06-03 04:55,minimax-m2.5-highspeed,4.462,ok,
+2026-06-03 04:55,kimi-k2.6,1.446,ok,
+2026-06-03 04:55,qwen3.5-397b-a17b,5.425,ok,
+2026-06-03 04:55,qwen3.5-flash,2.071,ok,
+2026-06-03 04:55,minimax-m2.5,3.992,ok,
+2026-06-03 04:55,claude-opus-4-6,5.472,ok,
+2026-06-03 04:55,gpt-5.1,2.131,ok,
+2026-06-03 04:55,deepseek-v4-pro,2.487,ok,
+2026-06-03 04:55,doubao-seed-2.0-code,-1,fail,"HTTP 500 - 平台服务器内部错误，上游服务异常; body={""error"":{""message"":""请求参数不能为空"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-06-03 04:55,hunyuan-t1-vision-20250916,1.991,ok,
+2026-06-03 04:55,gpt-5.1-codex,-1,fail,"HTTP 401 - API Key 无效或已过期; body={""error"":{""message"":""{\""error\"":{\""code\"":\""\"",\""message\"":\""Invalid token (request id: 202606022055197869464308268d9d6rhuHuZhI)\"",\""type\"":\""new_api_error\""}}"",""type"":"
+2026-06-03 04:55,claude-opus-4-8,-1,fail,"HTTP 400 - 请求格式错误，模型可能不支持该参数; body={""error"":{""message"":""openai_error"",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
+2026-06-03 04:55,minimax-m2.7,2.511,ok,
