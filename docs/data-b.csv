@@ -1891,3 +1891,14 @@ timestamp,model,latency,status,error
 2026-06-08 07:34,gemini-3.1-flash-image-preview,-1,fail,"HTTP 403 - 无权限访问该模型; body={""error"":{""message"":""[trace_id: 713e1247-c981-4c4b-9df6-a3ca472d9a6b] Access forbidden: account overdue, please check your unpaid order"",""type"":""permission_error"",""param"":"""","
 2026-06-08 07:34,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 403 - 无权限访问该模型; body={""error"":{""message"":""[trace_id: a4f6adbb-fdd3-43fb-9daf-903547ad8ccc] Access forbidden: account overdue, please check your unpaid order"",""type"":""permission_error"",""param"":"""","
 2026-06-08 07:34,gemini-3.1-pro-preview,-1,fail,"HTTP 403 - 无权限访问该模型; body={""error"":{""message"":""[trace_id: da86ba1f-439d-44c0-8bc9-80a9558c598e] Access forbidden: account overdue, please check your unpaid order"",""type"":""permission_error"",""param"":"""","
+2026-06-08 13:10,gpt-5.4,1.724,ok,
+2026-06-08 13:10,gpt-5.4-mini,1.395,ok,
+2026-06-08 13:10,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-nano under group default (distributor) (request id: 202606080510092601035279GigguqN)"",""typ"
+2026-06-08 13:10,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-pro under group default (distributor) (request id: 20260608051010406779352DWCS62Z)"",""type"""
+2026-06-08 13:10,gpt-5.5,2.017,ok,
+2026-06-08 13:10,claude-opus-4-6,2.995,ok,
+2026-06-08 13:10,claude-opus-4-7,1.912,ok,
+2026-06-08 13:10,claude-sonnet-4-6,1.761,ok,
+2026-06-08 13:10,gemini-3.1-flash-image-preview,1.627,ok,
+2026-06-08 13:10,gemini-3.1-flash-lite-preview,1.423,ok,
+2026-06-08 13:10,gemini-3.1-pro-preview,2.609,ok,
