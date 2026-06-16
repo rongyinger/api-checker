@@ -2441,3 +2441,14 @@ timestamp,model,latency,status,error
 2026-06-16 13:42,gemini-3.1-flash-image-preview,2.202,ok,
 2026-06-16 13:42,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gemini-3.1-flash-lite-preview under group default (distributor) (request id: 202606160543109381585"
 2026-06-16 13:42,gemini-3.1-pro-preview,2.401,ok,
+2026-06-16 19:39,gpt-5.4,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-16 19:39,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-16 19:39,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-16 19:39,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-16 19:39,gpt-5.5,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-16 19:39,claude-opus-4-6,4.102,ok,
+2026-06-16 19:39,claude-opus-4-7,3.274,ok,
+2026-06-16 19:39,claude-sonnet-4-6,3.106,ok,
+2026-06-16 19:39,gemini-3.1-flash-image-preview,2.329,ok,
+2026-06-16 19:39,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gemini-3.1-flash-lite-preview under group default (distributor) (request id: 202606161139592343672"
+2026-06-16 19:39,gemini-3.1-pro-preview,3.201,ok,
