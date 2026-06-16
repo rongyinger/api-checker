@@ -2474,3 +2474,14 @@ timestamp,model,latency,status,error
 2026-06-17 05:24,gemini-3.1-flash-image-preview,2.647,ok,
 2026-06-17 05:24,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gemini-3.1-flash-lite-preview under group default (distributor) (request id: 202606162124405742570"
 2026-06-17 05:24,gemini-3.1-pro-preview,2.636,ok,
+2026-06-17 07:53,gpt-5.4,2.934,ok,
+2026-06-17 07:53,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-17 07:53,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-17 07:53,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-17 07:53,gpt-5.5,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-17 07:53,claude-opus-4-6,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-17 07:53,claude-opus-4-7,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-17 07:53,claude-sonnet-4-6,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-17 07:53,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-17 07:53,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-17 07:53,gemini-3.1-pro-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
