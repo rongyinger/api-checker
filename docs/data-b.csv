@@ -2485,3 +2485,14 @@ timestamp,model,latency,status,error
 2026-06-17 07:53,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
 2026-06-17 07:53,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
 2026-06-17 07:53,gemini-3.1-pro-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""system memory overloaded (current: 91.0%, threshold: 90%)"",""type"":""new_api_error"",""param"":"""",""code"":""system_memory_overloaded""}}"
+2026-06-17 13:22,gpt-5.4,2.132,ok,
+2026-06-17 13:22,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-mini under group default (distributor) (request id: 202606170522257701871898268d9d6T2FNE6j"
+2026-06-17 13:22,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-nano under group default (distributor) (request id: 202606170522266120803008268d9d6RoF4lwc"
+2026-06-17 13:22,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-pro under group default (distributor) (request id: 202606170522274829183308268d9d6EOsLlC8y"
+2026-06-17 13:22,gpt-5.5,3.033,ok,
+2026-06-17 13:22,claude-opus-4-6,4.061,ok,
+2026-06-17 13:22,claude-opus-4-7,2.924,ok,
+2026-06-17 13:22,claude-sonnet-4-6,2.072,ok,
+2026-06-17 13:22,gemini-3.1-flash-image-preview,1.853,ok,
+2026-06-17 13:22,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gemini-3.1-flash-lite-preview under group default (distributor) (request id: 202606170522426964137"
+2026-06-17 13:22,gemini-3.1-pro-preview,2.823,ok,
