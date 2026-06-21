@@ -2826,3 +2826,14 @@ timestamp,model,latency,status,error
 2026-06-21 22:39,gemini-3.1-flash-image-preview,2.326,ok,
 2026-06-21 22:39,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gemini-3.1-flash-lite-preview under group default (distributor) (request id: 202606211440177700127"
 2026-06-21 22:39,gemini-3.1-pro-preview,2.627,ok,
+2026-06-22 02:02,gpt-5.4,2.142,ok,
+2026-06-22 02:02,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-mini under group default (distributor) (request id: 202606211802276841856928268d9d6yvdXMay"
+2026-06-22 02:02,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-nano under group default (distributor) (request id: 202606211802287260557508268d9d6gaIvKtW"
+2026-06-22 02:02,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-pro under group default (distributor) (request id: 202606211802299287015768268d9d6AkdIJ2Q1"
+2026-06-22 02:02,gpt-5.5,2.499,ok,
+2026-06-22 02:02,claude-opus-4-6,-1,fail,"HTTP 403 - 无权限访问该模型; body={""error"":{""message"":""订阅额度不足或未配置订阅: no active subscription (request id: 202606211802334057944458268d9d6LglVK7fo)"",""type"":""new_api_error"",""param"":"""",""code"":""insufficient_user_q"
+2026-06-22 02:02,claude-opus-4-7,-1,fail,"HTTP 403 - 无权限访问该模型; body={""error"":{""message"":""订阅额度不足或未配置订阅: no active subscription (request id: 202606211802344330094038268d9d67uXEeZqt)"",""type"":""new_api_error"",""param"":"""",""code"":""insufficient_user_q"
+2026-06-22 02:02,claude-sonnet-4-6,-1,fail,"HTTP 403 - 无权限访问该模型; body={""error"":{""message"":""订阅额度不足或未配置订阅: no active subscription (request id: 202606211802354336764238268d9d6eV7frvcp)"",""type"":""new_api_error"",""param"":"""",""code"":""insufficient_user_q"
+2026-06-22 02:02,gemini-3.1-flash-image-preview,2.467,ok,
+2026-06-22 02:02,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gemini-3.1-flash-lite-preview under group default (distributor) (request id: 202606211802391234662"
+2026-06-22 02:02,gemini-3.1-pro-preview,-1,fail,"HTTP 403 - 无权限访问该模型; body={""error"":{""message"":""订阅额度不足或未配置订阅: no active subscription (request id: 202606211802401598156238268d9d6MsbazY3T)"",""type"":""new_api_error"",""param"":"""",""code"":""insufficient_user_q"
