@@ -1,187 +1,4 @@
 timestamp,model,latency,status,error
-2026-06-17 01:01,grok-4-1-fast-non-reasoning,2.785,ok,
-2026-06-17 01:01,minimax-m2.5-highspeed,9.197,ok,
-2026-06-17 01:01,kimi-k2.6,1.522,ok,
-2026-06-17 01:01,kimi-k2-5-260127,1.737,ok,
-2026-06-17 01:01,deepseek-v4-flash,2.486,ok,
-2026-06-17 01:01,grok-4-1-fast-reasoning,3.56,ok,
-2026-06-17 01:01,minimax-m2.5,2.463,ok,
-2026-06-17 01:01,gemini-2.5-pro,12.975,ok,
-2026-06-17 01:01,claude-sonnet-4-6,3.055,ok,
-2026-06-17 01:01,gpt-5.5,3.763,ok,
-2026-06-17 01:01,qwen3.7-max,4.135,ok,
-2026-06-17 01:01,deepseek-v4-pro,2.561,ok,
-2026-06-17 01:01,gemini-3.1-pro-preview,3.27,ok,
-2026-06-17 01:01,gemini-2.5-flash,13.282,ok,
-2026-06-17 01:01,gpt-5.3-codex,2.862,ok,
-2026-06-17 01:01,gpt-5.5-pool,3.261,ok,
-2026-06-17 01:01,grok-code-fast-1,3.281,ok,
-2026-06-17 01:01,qwen3.6-max-preview,5.435,ok,
-2026-06-17 01:01,glm-5.1,3.978,ok,
-2026-06-17 01:01,minimax-m2.7,3.074,ok,
-2026-06-17 01:01,gpt-5.4,2.818,ok,
-2026-06-17 01:01,claude-opus-4-5-20251101,4.043,ok,
-2026-06-17 01:01,claude-haiku-4-5-20251001,2.466,ok,
-2026-06-17 01:01,claude-opus-4-7,2.72,ok,
-2026-06-17 01:01,qwen3.6-plus,4.85,ok,
-2026-06-17 01:01,glm-5,11.208,ok,
-2026-06-17 01:01,gemini-3.1-flash-lite-preview,1.764,ok,
-2026-06-17 01:01,claude-opus-4-6,5.673,ok,
-2026-06-17 01:01,claude-opus-4-8,5.71,ok,
-2026-06-17 04:57,gemini-3.1-flash-lite-preview,1.973,ok,
-2026-06-17 04:57,minimax-m2.5-highspeed,6.76,ok,
-2026-06-17 04:57,minimax-m2.5,2.251,ok,
-2026-06-17 04:57,claude-sonnet-4-6,3.136,ok,
-2026-06-17 04:57,gpt-5.4,2.43,ok,
-2026-06-17 04:57,grok-code-fast-1,4.795,ok,
-2026-06-17 04:57,grok-4-1-fast-reasoning,3.191,ok,
-2026-06-17 04:57,minimax-m2.7,3.212,ok,
-2026-06-17 04:57,claude-opus-4-5-20251101,5.308,ok,
-2026-06-17 04:57,claude-opus-4-8,3.53,ok,
-2026-06-17 04:57,gpt-5.5,4.742,ok,
-2026-06-17 04:57,glm-5,2.117,ok,
-2026-06-17 04:57,claude-opus-4-7,3.181,ok,
-2026-06-17 04:57,glm-5.1,2.401,ok,
-2026-06-17 04:57,claude-opus-4-6,4.577,ok,
-2026-06-17 04:57,claude-haiku-4-5-20251001,3.112,ok,
-2026-06-17 04:57,gpt-5.5-pool,3.286,ok,
-2026-06-17 04:57,grok-4-1-fast-non-reasoning,2.394,ok,
-2026-06-17 04:57,deepseek-v4-flash,1.801,ok,
-2026-06-17 04:57,qwen3.6-plus,3.751,ok,
-2026-06-17 04:57,gemini-3.1-pro-preview,3.024,ok,
-2026-06-17 04:57,gemini-2.5-pro,13.803,ok,
-2026-06-17 04:57,kimi-k2.6,1.487,ok,
-2026-06-17 04:57,deepseek-v4-pro,2.339,ok,
-2026-06-17 04:57,gemini-2.5-flash,11.964,ok,
-2026-06-17 04:57,qwen3.7-max,4.013,ok,
-2026-06-17 04:57,qwen3.6-max-preview,5.893,ok,
-2026-06-17 04:57,kimi-k2-5-260127,1.848,ok,
-2026-06-17 04:57,gpt-5.3-codex,8.697,ok,
-2026-06-17 07:27,deepseek-v4-flash,6.305,ok,
-2026-06-17 07:27,gpt-5.5-pool,3.371,ok,
-2026-06-17 07:27,grok-code-fast-1,5.747,ok,
-2026-06-17 07:27,qwen3.6-max-preview,6.047,ok,
-2026-06-17 07:27,claude-opus-4-6,3.8,ok,
-2026-06-17 07:27,kimi-k2.6,1.559,ok,
-2026-06-17 07:27,glm-5.1,4.283,ok,
-2026-06-17 07:27,gemini-3.1-pro-preview,3.62,ok,
-2026-06-17 07:27,gpt-5.5,6.02,ok,
-2026-06-17 07:27,gemini-3.1-flash-lite-preview,2.122,ok,
-2026-06-17 07:27,qwen3.7-max,5.258,ok,
-2026-06-17 07:27,gemini-2.5-pro,14.009,ok,
-2026-06-17 07:27,claude-sonnet-4-6,2.825,ok,
-2026-06-17 07:27,glm-5,6.772,ok,
-2026-06-17 07:27,claude-opus-4-7,3.408,ok,
-2026-06-17 07:27,claude-opus-4-8,4.011,ok,
-2026-06-17 07:27,gpt-5.4,2.599,ok,
-2026-06-17 07:27,qwen3.6-plus,3.379,ok,
-2026-06-17 07:27,minimax-m2.5-highspeed,9.496,ok,
-2026-06-17 07:27,claude-opus-4-5-20251101,5.735,ok,
-2026-06-17 07:27,claude-haiku-4-5-20251001,1.912,ok,
-2026-06-17 07:27,kimi-k2-5-260127,1.662,ok,
-2026-06-17 07:27,gpt-5.3-codex,2.69,ok,
-2026-06-17 07:27,grok-4-1-fast-non-reasoning,3.342,ok,
-2026-06-17 07:27,deepseek-v4-pro,2.147,ok,
-2026-06-17 07:27,grok-4-1-fast-reasoning,3.533,ok,
-2026-06-17 07:27,minimax-m2.5,2.192,ok,
-2026-06-17 07:27,minimax-m2.7,2.436,ok,
-2026-06-17 07:27,gemini-2.5-flash,1.642,ok,
-2026-06-17 12:25,claude-opus-4-7,2.806,ok,
-2026-06-17 12:25,gpt-5.4,3.814,ok,
-2026-06-17 12:25,grok-4-1-fast-non-reasoning,3.514,ok,
-2026-06-17 12:25,gpt-5.3-codex,3.521,ok,
-2026-06-17 12:25,minimax-m2.5-highspeed,20.711,ok,
-2026-06-17 12:25,claude-sonnet-4-6,4.232,ok,
-2026-06-17 12:25,kimi-k2.6,1.551,ok,
-2026-06-17 12:25,grok-code-fast-1,4.993,ok,
-2026-06-17 12:25,deepseek-v4-pro,2.391,ok,
-2026-06-17 12:25,kimi-k2-5-260127,1.411,ok,
-2026-06-17 12:25,qwen3.7-max,3.845,ok,
-2026-06-17 12:25,qwen3.6-plus,3.108,ok,
-2026-06-17 12:25,glm-5.1,4.522,ok,
-2026-06-17 12:25,grok-4-1-fast-reasoning,2.915,ok,
-2026-06-17 12:25,gemini-3.1-pro-preview,3.266,ok,
-2026-06-17 12:25,gemini-2.5-flash,11.378,ok,
-2026-06-17 12:25,gpt-5.5-pool,-1,fail,Request timeout (>60s) - model too slow or service unavailable
-2026-06-17 12:25,deepseek-v4-flash,1.971,ok,
-2026-06-17 12:25,qwen3.6-max-preview,4.655,ok,
-2026-06-17 12:25,glm-5,10.585,ok,
-2026-06-17 12:25,minimax-m2.5,1.823,ok,
-2026-06-17 12:25,gpt-5.5,7.554,ok,
-2026-06-17 12:25,gemini-2.5-pro,13.272,ok,
-2026-06-17 12:25,claude-opus-4-6,2.73,ok,
-2026-06-17 12:25,claude-opus-4-5-20251101,6.959,ok,
-2026-06-17 12:25,claude-opus-4-8,4.713,ok,
-2026-06-17 12:25,gemini-3.1-flash-lite-preview,1.895,ok,
-2026-06-17 12:25,minimax-m2.7,3.163,ok,
-2026-06-17 12:25,claude-haiku-4-5-20251001,1.854,ok,
-2026-06-17 19:04,deepseek-v4-flash,2.028,ok,
-2026-06-17 19:04,claude-haiku-4-5-20251001,2.712,ok,
-2026-06-17 19:04,kimi-k2-5-260127,1.574,ok,
-2026-06-17 19:04,gemini-2.5-flash,11.671,ok,
-2026-06-17 19:04,claude-opus-4-5-20251101,3.049,ok,
-2026-06-17 19:04,kimi-k2.6,1.293,ok,
-2026-06-17 19:04,gpt-5.5-pool,2.812,ok,
-2026-06-17 19:04,glm-5.1,4.308,ok,
-2026-06-17 19:04,glm-5,5.52,ok,
-2026-06-17 19:04,grok-4-1-fast-non-reasoning,3.152,ok,
-2026-06-17 19:04,grok-code-fast-1,4.484,ok,
-2026-06-17 19:04,grok-4-1-fast-reasoning,4.131,ok,
-2026-06-17 19:04,qwen3.6-max-preview,7.312,ok,
-2026-06-17 19:04,minimax-m2.5-highspeed,10.36,ok,
-2026-06-17 19:04,minimax-m2.7,3.442,ok,
-2026-06-17 19:04,claude-sonnet-4-6,4.907,ok,
-2026-06-17 19:04,claude-opus-4-7,2.843,ok,
-2026-06-17 19:04,deepseek-v4-pro,3.327,ok,
-2026-06-17 19:04,qwen3.6-plus,4.306,ok,
-2026-06-17 19:04,gpt-5.4,2.274,ok,
-2026-06-17 19:04,gpt-5.3-codex,2.751,ok,
-2026-06-17 19:04,gemini-3.1-flash-lite-preview,1.65,ok,
-2026-06-17 19:04,gemini-3.1-pro-preview,3.476,ok,
-2026-06-17 19:04,claude-opus-4-8,2.553,ok,
-2026-06-17 19:04,qwen3.7-max,3.725,ok,
-2026-06-17 19:04,minimax-m2.5,1.928,ok,
-2026-06-17 19:04,gemini-2.5-pro,13.576,ok,
-2026-06-17 19:04,claude-opus-4-6,2.753,ok,
-2026-06-17 19:04,gpt-5.5,2.553,ok,
-2026-06-17 23:40,gpt-5.1,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,gpt-5.1-codex,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,gpt-5.2,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,gpt-5.2-codex,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,gpt-5.3-codex,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,gpt-5.4,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,gpt-5.5,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,gpt-5.5-pool,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,claude-sonnet-4-5-20250929,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,claude-sonnet-4-6,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,claude-haiku-4-5-20251001,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,claude-opus-4-5-20251101,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,claude-opus-4-6,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,gemini-3-flash-preview,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,gemini-3.1-pro-preview,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,kimi-k2,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,kimi-k2-5-260127,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,kimi-k2-thinking,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,mimo-v2-flash,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,mimo-v2-pro,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,deepseek-v4-flash,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,deepseek-v4-pro,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,qwen3.5-flash,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,qwen3.5-plus,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,qwen3.5-397b-a17b,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,qwen3-coder,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,qwen3-vl-plus,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,glm-5,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,glm-5.1,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,minimax-m2.5,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,minimax-m2.5-highspeed,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,minimax-m2.7,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,hunyuan-vision-1.5-instruct,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,hunyuan-t1-vision-20250916,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,doubao-seed-2-0-lite,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,doubao-seed-2.0-code,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
-2026-06-17 23:40,doubao-seed-2.0-pro,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
 2026-06-18 02:22,gpt-5.1,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
 2026-06-18 02:22,gpt-5.1-codex,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
 2026-06-18 02:22,gpt-5.2,-1,fail,"HTTP 404 - 模型名称不存在，请确认模型ID是否正确; body=<html> <head><title>404 Not Found</title></head> <body> <center><h1>404 Not Found</h1></center> <hr><center>nginx</center> </body> </html> "
