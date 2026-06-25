@@ -3090,3 +3090,14 @@ timestamp,model,latency,status,error
 2026-06-25 12:40,gemini-3.1-flash-image-preview,-1,fail,"HTTP 403 - 无权限访问该模型; body={""error"":{""message"":""订阅额度不足或未配置订阅: no active subscription (request id: 202606250440276520123748268d9d6aK5PdxbN)"",""type"":""new_api_error"",""param"":"""",""code"":""insufficient_user_q"
 2026-06-25 12:40,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gemini-3.1-flash-lite-preview under group default (distributor) (request id: 202606250440285276198"
 2026-06-25 12:40,gemini-3.1-pro-preview,-1,fail,"HTTP 403 - 无权限访问该模型; body={""error"":{""message"":""订阅额度不足或未配置订阅: no active subscription (request id: 202606250440291705135828268d9d6tlPPHMJb)"",""type"":""new_api_error"",""param"":"""",""code"":""insufficient_user_q"
+2026-06-25 17:49,gpt-5.4,2.524,ok,
+2026-06-25 17:49,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-mini under group default (distributor) (request id: 202606250949423841276868268d9d6x8iFURG"
+2026-06-25 17:49,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-nano under group default (distributor) (request id: 20260625094943953176318268d9d6bRhOJhqM"
+2026-06-25 17:49,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-pro under group default (distributor) (request id: 20260625094944735361918268d9d6iFcvOgdt)"
+2026-06-25 17:49,gpt-5.5,2.386,ok,
+2026-06-25 17:49,claude-opus-4-6,3.167,ok,
+2026-06-25 17:49,claude-opus-4-7,2.348,ok,
+2026-06-25 17:49,claude-sonnet-4-6,2.433,ok,
+2026-06-25 17:49,gemini-3.1-flash-image-preview,2.177,ok,
+2026-06-25 17:49,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gemini-3.1-flash-lite-preview under group default (distributor) (request id: 202606250949576659187"
+2026-06-25 17:49,gemini-3.1-pro-preview,3.259,ok,
