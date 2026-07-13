@@ -4740,3 +4740,14 @@ timestamp,model,latency,status,error
 2026-07-14 03:55,gemini-3.1-flash-image-preview,2.526,ok,
 2026-07-14 03:55,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gemini-3.1-flash-lite-preview under group default (distributor) (request id: 202607131956108040963"
 2026-07-14 03:55,gemini-3.1-pro-preview,2.472,ok,
+2026-07-14 05:26,gpt-5.4,2.912,ok,
+2026-07-14 05:26,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-mini under group default (distributor) (request id: 202607132126155882441158268d9d6mGXtYJx"
+2026-07-14 05:26,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-nano under group default (distributor) (request id: 202607132126165156778478268d9d6nkpfqzN"
+2026-07-14 05:26,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gpt-5.4-pro under group default (distributor) (request id: 202607132126174968846828268d9d6Qjn0hkO7"
+2026-07-14 05:26,gpt-5.5,2.47,ok,
+2026-07-14 05:26,claude-opus-4-6,3.933,ok,
+2026-07-14 05:26,claude-opus-4-7,2.802,ok,
+2026-07-14 05:26,claude-sonnet-4-6,2.483,ok,
+2026-07-14 05:26,gemini-3.1-flash-image-preview,2.289,ok,
+2026-07-14 05:26,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""No available channel for model gemini-3.1-flash-lite-preview under group default (distributor) (request id: 202607132126325278425"
+2026-07-14 05:26,gemini-3.1-pro-preview,2.989,ok,
