@@ -7985,3 +7985,14 @@ timestamp,model,latency,status,error
 2026-08-14 19:12,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 202608141113016857650228268d9d6cU87Gx1i)"",""type"":"
 2026-08-14 19:12,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 202608141113025334700318268d9d6HMECRDBj)"",""type"":""ne"
 2026-08-14 19:12,gemini-3.1-pro-preview,6.652,ok,
+2026-08-14 21:50,gpt-5.4,8.735,ok,
+2026-08-14 21:50,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-mini 无可用渠道（distributor） (request id: 202608141350331079360038268d9d6ZjsEVA8A)"",""type"":""new_api_error""}}"
+2026-08-14 21:50,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-nano 无可用渠道（distributor） (request id: 202608141350341074553748268d9d63Esy9Pdr)"",""type"":""new_api_error""}}"
+2026-08-14 21:50,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-pro 无可用渠道（distributor） (request id: 202608141350351477208748268d9d6E6QGKgMJ)"",""type"":""new_api_error""}}"
+2026-08-14 21:50,gpt-5.5,-1,fail,Request timeout (>60s)
+2026-08-14 21:50,claude-opus-4-6,3.52,ok,
+2026-08-14 21:50,claude-opus-4-7,3.966,ok,
+2026-08-14 21:50,claude-sonnet-4-6,2.564,ok,
+2026-08-14 21:50,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 202608141351472410211238268d9d6aD59lezX)"",""type"":"
+2026-08-14 21:50,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 202608141351485235066148268d9d62kSSgOgV)"",""type"":""ne"
+2026-08-14 21:50,gemini-3.1-pro-preview,3.28,ok,
