@@ -8238,3 +8238,14 @@ timestamp,model,latency,status,error
 2026-08-16 16:54,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 20260816085454602348538268d9d6EeNysI7s)"",""type"":"""
 2026-08-16 16:54,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 202608160854548785113728268d9d6GmQYryPm)"",""type"":""ne"
 2026-08-16 16:54,gemini-3.1-pro-preview,3.418,ok,
+2026-08-16 18:45,gpt-5.4,2.8,ok,
+2026-08-16 18:45,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-mini 无可用渠道（distributor） (request id: 202608161046027561703428268d9d69QJ0N4ce)"",""type"":""new_api_error""}}"
+2026-08-16 18:45,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-nano 无可用渠道（distributor） (request id: 202608161046036611951068268d9d6QBp7bUFx)"",""type"":""new_api_error""}}"
+2026-08-16 18:45,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-pro 无可用渠道（distributor） (request id: 202608161046046461787338268d9d6O44QSqMh)"",""type"":""new_api_error""}}"
+2026-08-16 18:45,gpt-5.5,4.813,ok,
+2026-08-16 18:45,claude-opus-4-6,2.997,ok,
+2026-08-16 18:45,claude-opus-4-7,2.42,ok,
+2026-08-16 18:45,claude-sonnet-4-6,2.556,ok,
+2026-08-16 18:45,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 202608161046181335952298268d9d6sf0tevHJ)"",""type"":"
+2026-08-16 18:45,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 202608161046192571679688268d9d6fQWnUhxX)"",""type"":""ne"
+2026-08-16 18:45,gemini-3.1-pro-preview,-1,fail,"HTTP 429 - 请求过于频繁，触发限流; body={""error"":{""message"":""Too many requests."",""type"":""bad_response_status_code"",""param"":"""",""code"":""bad_response_status_code""}}"
