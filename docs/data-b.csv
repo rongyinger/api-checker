@@ -8579,3 +8579,14 @@ timestamp,model,latency,status,error
 2026-08-19 06:47,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 202608182248321722067338268d9d672KExomC)"",""type"":"
 2026-08-19 06:47,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 202608182248333600246178268d9d6gyXFT309)"",""type"":""ne"
 2026-08-19 06:47,gemini-3.1-pro-preview,3.483,ok,
+2026-08-19 09:58,gpt-5.4,3.01,ok,
+2026-08-19 09:58,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-mini 无可用渠道（distributor） (request id: 202608190158063245904848268d9d6r65Jr8NO)"",""type"":""new_api_error""}}"
+2026-08-19 09:58,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-nano 无可用渠道（distributor） (request id: 202608190158073711394778268d9d6T2q60TtZ)"",""type"":""new_api_error""}}"
+2026-08-19 09:58,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-pro 无可用渠道（distributor） (request id: 202608190158083952956128268d9d6J1N5pApb)"",""type"":""new_api_error""}}"
+2026-08-19 09:58,gpt-5.5,3.488,ok,
+2026-08-19 09:58,claude-opus-4-6,3.816,ok,
+2026-08-19 09:58,claude-opus-4-7,10.452,ok,
+2026-08-19 09:58,claude-sonnet-4-6,7.932,ok,
+2026-08-19 09:58,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 202608190158353654762078268d9d6aK0ywf47)"",""type"":"
+2026-08-19 09:58,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 202608190158363560528418268d9d6JiXhWIWi)"",""type"":""ne"
+2026-08-19 09:58,gemini-3.1-pro-preview,7.815,ok,
