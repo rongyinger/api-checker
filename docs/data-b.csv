@@ -10504,3 +10504,14 @@ timestamp,model,latency,status,error
 2026-09-13 13:03,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 202609130504172541301248268d9d6CkENr9US)"",""type"":"
 2026-09-13 13:03,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 202609130504183579576668268d9d6vZa1x7Gm)"",""type"":""ne"
 2026-09-13 13:03,gemini-3.1-pro-preview,3.401,ok,
+2026-09-13 20:10,gpt-5.4,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gpt-5.4 under group pro (distributor) (request id: 202609131210133804371168268d9d6v8WYUOv7)"",""type"":""novafare_api_error"",""p"
+2026-09-13 20:10,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-mini 无可用渠道（distributor） (request id: 202609131210144825008308268d9d6L3edizod)"",""type"":""new_api_error""}}"
+2026-09-13 20:10,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-nano 无可用渠道（distributor） (request id: 202609131210152585384988268d9d6ZG72PQlT)"",""type"":""new_api_error""}}"
+2026-09-13 20:10,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-pro 无可用渠道（distributor） (request id: 20260913121016548312228268d9d6DIe38cL3)"",""type"":""new_api_error""}}"
+2026-09-13 20:10,gpt-5.5,4.19,ok,
+2026-09-13 20:10,claude-opus-4-6,3.08,ok,
+2026-09-13 20:10,claude-opus-4-7,2.998,ok,
+2026-09-13 20:10,claude-sonnet-4-6,2.353,ok,
+2026-09-13 20:10,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 202609131210295171322798268d9d63DVwi9gg)"",""type"":"
+2026-09-13 20:10,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 202609131210303815407818268d9d61bnwnQjG)"",""type"":""ne"
+2026-09-13 20:10,gemini-3.1-pro-preview,3.536,ok,
