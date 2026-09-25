@@ -11164,3 +11164,14 @@ timestamp,model,latency,status,error
 2026-09-26 01:23,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 202609251723589176626798268d9d6O5nH976A)"",""type"":"
 2026-09-26 01:23,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 20260925172400994300628268d9d6tmg5Nl3f)"",""type"":""new"
 2026-09-26 01:23,gemini-3.1-pro-preview,5.96,ok,
+2026-09-26 05:43,gpt-5.4,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4 无可用渠道（distributor） (request id: 202609252143366898957138268d9d6MXa4divf)"",""type"":""new_api_error""}}"
+2026-09-26 05:43,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-mini 无可用渠道（distributor） (request id: 202609252143375542154338268d9d6yoo62LAj)"",""type"":""new_api_error""}}"
+2026-09-26 05:43,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-nano 无可用渠道（distributor） (request id: 202609252143384772739838268d9d6dxB50SOB)"",""type"":""new_api_error""}}"
+2026-09-26 05:43,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-pro 无可用渠道（distributor） (request id: 202609252143394324405538268d9d6XlBB6cnh)"",""type"":""new_api_error""}}"
+2026-09-26 05:43,gpt-5.5,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.5 无可用渠道（distributor） (request id: 202609252143403835277098268d9d64swQQn62)"",""type"":""new_api_error""}}"
+2026-09-26 05:43,claude-opus-4-6,-1,fail,"HTTP 400 - 请求格式错误; body={""error"":{""message"":""InvokeModel: operation error Bedrock Runtime: InvokeModel, https response error StatusCode: 400, RequestID: c34d7993-91f0-43c2-beb2-b3ab151a258f, Validatio"
+2026-09-26 05:43,claude-opus-4-7,5.545,ok,
+2026-09-26 05:43,claude-sonnet-4-6,5.223,ok,
+2026-09-26 05:43,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 202609252143588127663498268d9d6Jol6FVj6)"",""type"":"
+2026-09-26 05:43,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 20260925214400359383388268d9d6HGI3BFf1)"",""type"":""new"
+2026-09-26 05:43,gemini-3.1-pro-preview,4.679,ok,
