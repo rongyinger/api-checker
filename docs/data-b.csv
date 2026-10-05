@@ -11604,3 +11604,14 @@ timestamp,model,latency,status,error
 2026-10-05 13:59,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 202610050559214110234828268d9d63nFLFL69)"",""type"":"
 2026-10-05 13:59,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 202610050559227571929698268d9d6pJOgmNo1)"",""type"":""ne"
 2026-10-05 13:59,gemini-3.1-pro-preview,3.207,ok,
+2026-10-05 23:03,gpt-5.4,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4 无可用渠道（distributor） (request id: 202610051503573961353208268d9d6DekbnMnk)"",""type"":""new_api_error""}}"
+2026-10-05 23:03,gpt-5.4-mini,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-mini 无可用渠道（distributor） (request id: 202610051503582866706708268d9d6t3fweD3s)"",""type"":""new_api_error""}}"
+2026-10-05 23:03,gpt-5.4-nano,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-nano 无可用渠道（distributor） (request id: 202610051504001579367758268d9d6HNOoRPv5)"",""type"":""new_api_error""}}"
+2026-10-05 23:03,gpt-5.4-pro,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.4-pro 无可用渠道（distributor） (request id: 202610051504008290084178268d9d65aCpJcAk)"",""type"":""new_api_error""}}"
+2026-10-05 23:03,gpt-5.5,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gpt-5.5 无可用渠道（distributor） (request id: 202610051504034409355108268d9d6MDdsrciL)"",""type"":""new_api_error""}}"
+2026-10-05 23:03,claude-opus-4-6,3.565,ok,
+2026-10-05 23:03,claude-opus-4-7,3.094,ok,
+2026-10-05 23:03,claude-sonnet-4-6,-1,fail,"HTTP 400 - 请求格式错误; body={""error"":{""message"":""InvokeModel: operation error Bedrock Runtime: InvokeModel, https response error StatusCode: 400, RequestID: 5966e1c3-b4de-4701-b617-212e2a27d0f0, Validatio"
+2026-10-05 23:03,gemini-3.1-flash-image-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""message"":""No available channel for model gemini-3.1-flash-image-preview under group pro (distributor) (request id: 202610051504237407745348268d9d6GTNp4SN5)"",""type"":"
+2026-10-05 23:03,gemini-3.1-flash-lite-preview,-1,fail,"HTTP 503 - 服务暂时不可用; body={""error"":{""code"":""model_not_found"",""message"":""分组 default 下模型 gemini-3.1-flash-lite-preview 无可用渠道（distributor） (request id: 202610051504259819994288268d9d65J155bhM)"",""type"":""ne"
+2026-10-05 23:03,gemini-3.1-pro-preview,6.082,ok,
